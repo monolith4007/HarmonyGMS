@@ -38,6 +38,7 @@
   "name":"HarmonyGMS",
   "resources":[
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"GameInitialization","path":"scripts/GameInitialization/GameInitialization.yy",},},
     {"id":{"name":"PlayerCollisionFunctions","path":"scripts/PlayerCollisionFunctions/PlayerCollisionFunctions.yy",},},
     {"id":{"name":"PlayerGetterFunctions","path":"scripts/PlayerGetterFunctions/PlayerGetterFunctions.yy",},},
     {"id":{"name":"PlayerSetterFunctions","path":"scripts/PlayerSetterFunctions/PlayerSetterFunctions.yy",},},
