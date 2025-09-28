@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"PlayerGetterFunctions",
+  "%Name":"PlayerGroundedStates",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"PlayerGetterFunctions",
+  "name":"PlayerGroundedStates",
   "parent":{
-    "name":"Physics",
-    "path":"folders/Scripts/Player/Physics.yy",
+    "name":"States",
+    "path":"folders/Scripts/Player/States.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
