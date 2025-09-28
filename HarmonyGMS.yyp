@@ -54,6 +54,7 @@
     {"id":{"name":"AudioFunctions","path":"scripts/AudioFunctions/AudioFunctions.yy",},},
     {"id":{"name":"GameInitialization","path":"scripts/GameInitialization/GameInitialization.yy",},},
     {"id":{"name":"InputFunctions","path":"scripts/InputFunctions/InputFunctions.yy",},},
+    {"id":{"name":"PlayerAerialStates","path":"scripts/PlayerAerialStates/PlayerAerialStates.yy",},},
     {"id":{"name":"PlayerCollisionFunctions","path":"scripts/PlayerCollisionFunctions/PlayerCollisionFunctions.yy",},},
     {"id":{"name":"PlayerGetterFunctions","path":"scripts/PlayerGetterFunctions/PlayerGetterFunctions.yy",},},
     {"id":{"name":"PlayerGroundedStates","path":"scripts/PlayerGroundedStates/PlayerGroundedStates.yy",},},
