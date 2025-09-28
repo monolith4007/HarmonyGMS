@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"PlayerSetterFunctions",
+  "%Name":"UtilityFunctions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"PlayerSetterFunctions",
+  "name":"UtilityFunctions",
   "parent":{
-    "name":"Player",
-    "path":"folders/Scripts/Player.yy",
+    "name":"Global",
+    "path":"folders/Scripts/Global.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
