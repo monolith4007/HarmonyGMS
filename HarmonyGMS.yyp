@@ -66,7 +66,7 @@
     {"id":{"name":"objRing","path":"objects/objRing/objRing.yy",},},
     {"id":{"name":"objSolid","path":"objects/objSolid/objSolid.yy",},},
     {"id":{"name":"objZoneObject","path":"objects/objZoneObject/objZoneObject.yy",},},
-    {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"AudioFunctions","path":"scripts/AudioFunctions/AudioFunctions.yy",},},
     {"id":{"name":"GameInitialization","path":"scripts/GameInitialization/GameInitialization.yy",},},
     {"id":{"name":"InputFunctions","path":"scripts/InputFunctions/InputFunctions.yy",},},
@@ -113,7 +113,7 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
