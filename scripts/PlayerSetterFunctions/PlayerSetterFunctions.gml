@@ -54,57 +54,52 @@ function player_resolve_angle()
 	static new_dir = mask_direction;
 	ground_snap = true;
 	
-	// If both of the player's feet are grounded, the normal must be flat
-	if (mask_edge == 3)
+	var x_int = x div 1;
+	var y_int = y div 1;
+	var sine = dsin(mask_direction);
+	var cosine = dcos(mask_direction);
+	
+	// Check for steep angle ranges at ramp edges
+	if (ramp_edge != 0 and ramp_edge != 3)
 	{
-		new_dir = mask_direction;
+		if (ramp_edge == 2)
+		{
+			var ox = x_int - cosine * x_radius + sine * y_radius + sine;
+			var oy = y_int + sine * x_radius + cosine * y_radius + cosine;
+			var rot = mask_direction + 90;
+		}
+		else
+		{
+			var ox = x_int + cosine * x_radius + sine * y_radius + sine;
+			var oy = y_int - sine * x_radius + cosine * y_radius + cosine;
+			var rot = mask_direction + 270;
+		}
+		
+		// Calculate...
+		var perp_dir = player_calc_ground_normal(ox, oy, rot); // The normal perpendicular to the ramp edge
+		var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
+		
+		// If the difference is too steep, abort angle calculation and do not snap down to the ground
+		if (diff > 45 and diff < 90) ground_snap = false;
 	}
-	else
+	
+	if (ground_snap and mask_edge != 0)
 	{
-		var x_int = x div 1;
-		var y_int = y div 1;
-		var sine = dsin(mask_direction);
-		var cosine = dcos(mask_direction);
-		var rot = undefined;
-		
-		if (mask_edge == 1 or ramp_edge == 2)
+		if (mask_edge != 3)
 		{
-			var ox = x_int - (cosine * x_radius) + (sine * y_radius);
-			var oy = y_int + (sine * x_radius) + (cosine * y_radius);
-			if (ramp_edge == 2)
+			if (mask_edge == 1)
 			{
-				ox += sine;
-				oy += cosine;
-				rot = mask_direction + 90;
+				var ox = x_int - cosine * x_radius + sine * y_radius;
+				var oy = y_int + sine * x_radius + cosine * y_radius;
 			}
-		}
-		else if (mask_edge == 2 or ramp_edge == 1)
-		{
-			var ox = x_int + (cosine * x_radius) + (sine * y_radius);
-			var oy = y_int - (sine * x_radius) + (cosine * y_radius);
-			if (ramp_edge == 1)
+			else
 			{
-				ox += sine;
-				oy += cosine;
-				rot = mask_direction + 270;
+				var ox = x_int + cosine * x_radius + sine * y_radius;
+				var oy = y_int - sine * x_radius + cosine * y_radius;
 			}
-		}
-		
-		// Check for steep angle ranges at ramp edges
-		if (rot != undefined)
-		{
-			// Calculate...
-			var perp_dir = player_calc_ground_normal(ox, oy, rot); // The normal perpendicular to the ramp edge
-			var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
-			
-			// If the difference is too steep, abort angle calculation and do not snap down to the ground
-			if (diff > 45 and diff < 90) ground_snap = false;
-		}
-		
-		if (ground_snap and mask_edge != 0)
-		{
 			new_dir = player_calc_ground_normal(ox, oy, mask_direction);
 		}
+		else new_dir = mask_direction;
 	}
 	
 	// Set new angle values
