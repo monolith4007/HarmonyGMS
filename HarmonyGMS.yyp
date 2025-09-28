@@ -41,6 +41,7 @@
     {"id":{"name":"GameInitialization","path":"scripts/GameInitialization/GameInitialization.yy",},},
     {"id":{"name":"PlayerCollisionFunctions","path":"scripts/PlayerCollisionFunctions/PlayerCollisionFunctions.yy",},},
     {"id":{"name":"PlayerGetterFunctions","path":"scripts/PlayerGetterFunctions/PlayerGetterFunctions.yy",},},
+    {"id":{"name":"PlayerMovementFunctions","path":"scripts/PlayerMovementFunctions/PlayerMovementFunctions.yy",},},
     {"id":{"name":"PlayerSetterFunctions","path":"scripts/PlayerSetterFunctions/PlayerSetterFunctions.yy",},},
     {"id":{"name":"PlayerSolidFunctions","path":"scripts/PlayerSolidFunctions/PlayerSolidFunctions.yy",},},
     {"id":{"name":"UtilityFunctions","path":"scripts/UtilityFunctions/UtilityFunctions.yy",},},
