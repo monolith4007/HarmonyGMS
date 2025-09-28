@@ -45,8 +45,8 @@ function player_resolve_angle()
 		// Check for ramp edges
 		if (not landed)
 		{
-			if (player_leg_in_object(inst, -x_radius, y_radius + y_snap_height)) ramp_edge |= 1;
-			if (player_leg_in_object(inst, x_radius, y_radius + y_snap_height)) ramp_edge |= 2;
+			if (player_leg_in_object(inst, -x_radius, y_radius + y_tile_reach)) ramp_edge |= 1;
+			if (player_leg_in_object(inst, x_radius, y_radius + y_tile_reach)) ramp_edge |= 2;
 		}
 	}
 	
@@ -107,10 +107,11 @@ function player_resolve_angle()
 	local_direction = angle_wrap(direction - gravity_direction);
 }
 
-/// @function player_ground(inst)
+/// @function player_ground(inst, [height])
 /// @description Sets the given instance as the terrain the player is standing on. If noone is assigned, the player is rotated to their gravity direction.
 /// @param {Id.Instance} inst Instance to set.
-function player_ground(inst)
+/// @param {Real} [height] Distance in pixels to align the player's virtual mask with the instance (optional if noone is assigned).
+function player_ground(inst, height)
 {
 	ground_id = inst;
 	on_ground = (inst != noone);
@@ -123,34 +124,10 @@ function player_ground(inst)
 	}
 	else
 	{
-		var sine = dsin(mask_direction);
-		var cosine = dcos(mask_direction);
-		var height = y_radius + y_snap_height;
-		
-		// Rise up
-		repeat (height)
-		{
-			if (player_body_in_object(inst, y_radius))
-			{
-				x -= sine;
-				y -= cosine;
-			}
-			else break;
-		}
-		
-		// Snap down
-		if (ground_snap)
-		{
-			repeat (height)
-			{
-				if (not player_body_in_object(inst, y_radius + 1))
-				{
-					x += sine;
-					y += cosine;
-				}
-				else break;
-			}
-		}
+		// Align to ground
+		var offset = y_radius - height + 1;
+		x -= dsin(mask_direction) * offset;
+		y -= dcos(mask_direction) * offset;
 		
 		// Update angle values
 		player_resolve_angle();

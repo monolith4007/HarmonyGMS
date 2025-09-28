@@ -43,7 +43,7 @@ function player_calc_ground_normal(ox, oy, rot)
 	}
 	
 	// Extend / regress angle sensors
-	var reps = y_snap_height * 2;
+	var reps = y_tile_reach * 2;
 	for (var n = 0; n < 2; ++n)
 	{
 		repeat (reps)
@@ -81,7 +81,7 @@ function player_register_zone_objects()
 	var x_int = x div 1;
 	var y_int = y div 1;
 	var xrad = x_wall_radius;
-	var yrad = y_snap_height * 2 + y_radius + 1;
+	var yrad = y_tile_reach * 2 + y_radius + 1;
 	
 	// Detect instances intersecting the rectangle
 	var zone_objects = ds_list_create();
@@ -112,7 +112,7 @@ function player_get_cliff_sign()
 	// Initialize
 	cliff_sign = 0;
 	var edge = 0;
-	var height = y_radius + y_snap_height;
+	var height = y_radius + y_tile_reach;
 	
 	// Evaluate all solids
 	for (var n = ds_list_size(solid_objects) - 1; n > -1; --n)

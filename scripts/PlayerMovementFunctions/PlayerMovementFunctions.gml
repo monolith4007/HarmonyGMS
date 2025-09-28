@@ -36,10 +36,10 @@ function player_move_on_ground()
 		// Handle floor collision
 		if (on_ground)
 		{
-			inst = player_get_floor(ground_snap ? y_radius + y_snap_height : y_radius + 1);
-			if (inst != noone)
+			inst = player_get_floor(ground_snap ? y_radius + y_tile_reach : y_radius + 1);
+			if (inst[0] != noone)
 			{
-				player_ground(inst);
+				player_ground(inst[0], inst[1]);
 				player_rotate_mask();
 			}
 			else on_ground = false;
@@ -80,10 +80,10 @@ function player_move_in_air()
 		if (y_speed >= 0)
 		{
 			inst = player_get_floor(y_radius);
-			if (inst != noone)
+			if (inst[0] != noone)
 			{
 				landed = true;
-				player_ground(inst);
+				player_ground(inst[0], inst[1]);
 				player_rotate_mask();
 			}
 		}
@@ -91,12 +91,12 @@ function player_move_in_air()
 		{
 			// Handle ceiling collision
 			inst = player_get_ceiling(y_radius);
-			if (inst != noone)
+			if (inst[0] != noone)
 			{
 				// Flip mask and land on the ceiling
 				mask_direction = (mask_direction + 180) mod 360;
 				landed = true;
-				player_ground(inst);
+				player_ground(inst[0], inst[1]);
 				
 				// Abort if rising slowly or the ceiling is too shallow
 				if (y_speed > -4 or (local_direction >= 135 and local_direction <= 225))

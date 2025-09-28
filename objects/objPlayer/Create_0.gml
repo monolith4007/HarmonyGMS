@@ -38,7 +38,7 @@ x_radius = 8;
 x_wall_radius = 10;
 
 y_radius = 15;
-y_snap_height = 16;
+y_tile_reach = 16;
 
 on_ground = true;
 ground_id = noone;
