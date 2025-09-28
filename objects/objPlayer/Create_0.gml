@@ -129,3 +129,30 @@ player_animate = function(name)
 	timeline_index = animations[$ name];
 	timeline_position = 0;
 }
+
+/// @method player_gain_rings(num)
+/// @description Increases the player's ring count by the given amount.
+/// @param {Real} num Amount of rings to give.
+player_gain_rings = function(num)
+{
+	static ring_life_threshold = 100;
+	
+	global.rings = min(global.rings + num, 999);
+	if (global.rings >= ring_life_threshold)
+	{
+		var change = global.rings div 100;
+		player_gain_lives(change);
+		ring_life_threshold += change * 100;
+	}
+	
+	sound_play(sfxRing);
+}
+
+/// @method player_gain_lives(num)
+/// @description Increases the player's life count by the given amount.
+/// @param {Real} num Amount of lives to give.
+player_gain_lives = function(num)
+{
+	lives = min(lives + num, 99);
+	music_overlay(bgmLife);
+}
