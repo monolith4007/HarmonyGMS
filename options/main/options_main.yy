@@ -4,7 +4,7 @@
   "name":"Main",
   "option_audio_error_behaviour":false,
   "option_author":"",
-  "option_collision_compatibility":false,
+  "option_collision_compatibility":true,
   "option_copy_on_write_enabled":false,
   "option_draw_colour":4294967295,
   "option_gameguid":"b7d5bd2b-b3c2-4e11-a728-66cb303ad2cc",
