@@ -36,6 +36,7 @@
   "name":"HarmonyGMS",
   "resources":[
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"PlayerCollisionFunctions","path":"scripts/PlayerCollisionFunctions/PlayerCollisionFunctions.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
