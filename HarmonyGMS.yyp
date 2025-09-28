@@ -37,6 +37,7 @@
   "resources":[
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"PlayerCollisionFunctions","path":"scripts/PlayerCollisionFunctions/PlayerCollisionFunctions.yy",},},
+    {"id":{"name":"PlayerGetterFunctions","path":"scripts/PlayerGetterFunctions/PlayerGetterFunctions.yy",},},
     {"id":{"name":"PlayerSolidFunctions","path":"scripts/PlayerSolidFunctions/PlayerSolidFunctions.yy",},},
   ],
   "resourceType":"GMProject",
