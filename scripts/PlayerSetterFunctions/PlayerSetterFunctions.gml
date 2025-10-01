@@ -50,16 +50,14 @@ function player_resolve_angle()
 		}
 	}
 	
-	// Initialize default angle
-	static new_dir = mask_direction;
-	ground_snap = true;
-	
+	// Setup offset point from which the normal should be calculated
 	var x_int = x div 1;
 	var y_int = y div 1;
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
 	
 	// Check for steep angle ranges at ramp edges
+	ground_snap = true;
 	if (ramp_edge != 0 and ramp_edge != 3)
 	{
 		if (ramp_edge == 2)
@@ -79,12 +77,18 @@ function player_resolve_angle()
 		var perp_dir = player_calc_ground_normal(ox, oy, rot); // The normal perpendicular to the ramp edge
 		var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
 		
-		// If the difference is too steep, abort angle calculation and do not snap down to the ground
-		if (diff > 45 and diff < 90) ground_snap = false;
+		// If the difference is too steep, do not snap down to the ground, and abort angle calculation
+		if (diff > 45 and diff < 90)
+		{
+			ground_snap = false;
+			exit;
+		}
 	}
 	
-	if (ground_snap and mask_edge != 0)
+	// Calculate the ground normal
+	if (mask_edge != 0)
 	{
+		var new_dir = mask_direction;
 		if (mask_edge != 3)
 		{
 			if (mask_edge == 1)
@@ -99,12 +103,11 @@ function player_resolve_angle()
 			}
 			new_dir = player_calc_ground_normal(ox, oy, mask_direction);
 		}
-		else new_dir = mask_direction;
+		
+		// Set new angle values
+		direction = new_dir;
+		local_direction = angle_wrap(direction - gravity_direction);
 	}
-	
-	// Set new angle values
-	direction = new_dir;
-	local_direction = angle_wrap(direction - gravity_direction);
 }
 
 /// @function player_ground(inst, [height])

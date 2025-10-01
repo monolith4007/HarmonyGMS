@@ -7,6 +7,7 @@
 // Misc.
 surface_depth_disable(true);
 randomize();
+audio_channel_num(16);
 
 // Volumes
 volume_sound = 1;

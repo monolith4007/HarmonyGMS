@@ -349,7 +349,7 @@ function player_is_rolling(phase)
 			if (abs(x_speed) < 0.5) return player_perform(player_is_running);
 			
 			// Animate
-			timeline_speed = 1 / max(5 - (abs(x_speed) div 1), 1);
+			timeline_speed = 1 / max(5 - abs(x_speed) div 1, 1);
 			break;
 		}
 		case PHASE.EXIT:
@@ -394,7 +394,7 @@ function player_is_spindashing(phase)
 			// Roll
 			if (not input_check(INPUT.DOWN))
 			{
-				x_speed = image_xscale * (8 + (spindash_charge div 2));
+				x_speed = image_xscale * (8 + spindash_charge div 2);
 				objCamera.alarm[0] = 16;
 				audio_stop_sound(sfxSpinRev);
 				sound_play(sfxSpinDash);

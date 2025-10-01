@@ -92,17 +92,10 @@ player_rotate_mask = function()
 	if (rotation_lock_time > 0) then --rotation_lock_time;
 	
 	var new_rotation = (round(direction / 90) mod 4) * 90;
-	if (mask_direction != new_rotation)
+	if (mask_direction != new_rotation and (landed or rotation_lock_time == 0))
 	{
-		if (landed)
-		{
-			mask_direction = new_rotation;
-		}
-		else if (rotation_lock_time == 0)
-		{
-			mask_direction = new_rotation;
-			rotation_lock_time = max(16 - (abs(x_speed * 2) div 1), 0);
-		}
+		mask_direction = new_rotation;
+		if (not landed) rotation_lock_time = max(16 - abs(x_speed * 2) div 1, 0);
 	}
 }
 
@@ -135,17 +128,17 @@ player_animate = function(name)
 /// @param {Real} num Amount of rings to give.
 player_gain_rings = function(num)
 {
-	static ring_life_threshold = 100;
-	
 	global.rings = min(global.rings + num, 999);
+	sound_play(sfxRing);
+	
+	// Gain lives
+	static ring_life_threshold = 100;
 	if (global.rings >= ring_life_threshold)
 	{
 		var change = global.rings div 100;
 		player_gain_lives(change);
 		ring_life_threshold += change * 100;
 	}
-	
-	sound_play(sfxRing);
 }
 
 /// @method player_gain_lives(num)
