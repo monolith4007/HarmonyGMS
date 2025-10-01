@@ -31,8 +31,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Sonic",
-    "path":"folders/Sprites/Sonic.yy",
+    "name":"Effects",
+    "path":"folders/Sprites/Player/Effects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
