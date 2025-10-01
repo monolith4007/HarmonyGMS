@@ -104,26 +104,3 @@ function player_register_zone_objects()
 	}
 	ds_list_destroy(zone_objects);
 }
-
-/// @function player_get_cliff_sign()
-/// @description Finds the direction of a cliff the player is standing on.
-function player_get_cliff_sign()
-{
-	// Initialize
-	cliff_sign = 0;
-	var edge = 0;
-	var height = y_radius + y_tile_reach;
-	
-	// Evaluate all solids
-	for (var n = ds_list_size(solid_objects) - 1; n > -1; --n)
-	{
-		var inst = solid_objects[| n];
-		
-		if (player_leg_in_object(inst, 0, height)) exit; // Center collision means not on a cliff
-		if (player_leg_in_object(inst, -x_radius, height)) edge |= 1;
-		if (player_leg_in_object(inst, x_radius, height)) edge |= 2;
-	}
-	
-	// Check if only one edge is grounded
-	if (edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
-}

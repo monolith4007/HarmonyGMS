@@ -27,8 +27,31 @@ function player_is_standing(phase)
 	{
 		case PHASE.ENTER:
 		{
+			/// @method get_cliff()
+			/// @description Finds the direction of a cliff the player is standing on.
+			var get_cliff = function()
+			{
+				// Initialize
+				cliff_sign = 0;
+				var edge = 0;
+				var height = y_radius + y_tile_reach;
+				
+				for (var n = ds_list_size(solid_objects) - 1; n > -1; --n)
+				{
+					var inst = solid_objects[| n];
+					
+					// Check sensors
+					if (player_leg_in_object(inst, 0, height)) exit; // Center collision means not on a cliff
+					if (player_leg_in_object(inst, -x_radius, height)) edge |= 1; // Left
+					if (player_leg_in_object(inst, x_radius, height)) edge |= 2; // Right
+				}
+				
+				// Check if only one sensor is grounded
+				if (edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
+			}
+			
 			rolling = false;
-			player_get_cliff_sign();
+			get_cliff();
 			
 			// Animate
 			player_animate(cliff_sign != 0 ? "teeter" : "idle");
