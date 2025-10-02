@@ -74,6 +74,7 @@
     {"id":{"name":"UtilityFunctions","path":"scripts/UtilityFunctions/UtilityFunctions.yy",},},
     {"id":{"name":"bgmLife","path":"sounds/bgmLife/bgmLife.yy",},},
     {"id":{"name":"bgmMadGear","path":"sounds/bgmMadGear/bgmMadGear.yy",},},
+    {"id":{"name":"sfxBrake","path":"sounds/sfxBrake/sfxBrake.yy",},},
     {"id":{"name":"sfxJump","path":"sounds/sfxJump/sfxJump.yy",},},
     {"id":{"name":"sfxRing","path":"sounds/sfxRing/sfxRing.yy",},},
     {"id":{"name":"sfxRoll","path":"sounds/sfxRoll/sfxRoll.yy",},},
