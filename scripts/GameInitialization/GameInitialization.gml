@@ -40,8 +40,8 @@ call_later(1, time_source_units_frames, function()
 	instance_create_layer(0, 0, "Controllers", ctrlInput);
 	instance_create_layer(0, 0, "Controllers", ctrlMusic);
 	
-	// TODO: move this to the zone controller object once that's added
 	music_enqueue(bgmMadGear, 0);
 });
 
-/* AUTHOR NOTE: this must be done one frame later as the first room will not have loaded yet. */
+/* AUTHOR NOTE: this must be done one frame later as the first room will not have loaded yet.
+Due to this, for testing purposes, the Mad Gear track is enqueued here. */

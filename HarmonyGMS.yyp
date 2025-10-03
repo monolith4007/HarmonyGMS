@@ -50,6 +50,7 @@
     {"id":{"name":"ctrlInput","path":"objects/ctrlInput/ctrlInput.yy",},},
     {"id":{"name":"ctrlMusic","path":"objects/ctrlMusic/ctrlMusic.yy",},},
     {"id":{"name":"ctrlWindow","path":"objects/ctrlWindow/ctrlWindow.yy",},},
+    {"id":{"name":"ctrlZone","path":"objects/ctrlZone/ctrlZone.yy",},},
     {"id":{"name":"objBlock","path":"objects/objBlock/objBlock.yy",},},
     {"id":{"name":"objCamera","path":"objects/objCamera/objCamera.yy",},},
     {"id":{"name":"objPlayer","path":"objects/objPlayer/objPlayer.yy",},},

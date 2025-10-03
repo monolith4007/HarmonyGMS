@@ -96,7 +96,7 @@ player_rotate_mask = function()
 	if (mask_direction != new_rotation and (landed or rotation_lock_time == 0))
 	{
 		mask_direction = new_rotation;
-		if (not landed) rotation_lock_time = max(16 - abs(x_speed * 2) div 1, 0);
+		rotation_lock_time = (landed ? 0 : max(16 - abs(x_speed * 2) div 1, 0));
 	}
 }
 
