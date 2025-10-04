@@ -18,6 +18,10 @@ score = 0;
 lives = 3;
 rings = 0;
 
+// Fonts
+font_hud = font_add_sprite(sprFontHUD, ord("0"), false, 1);
+font_lives = font_add_sprite(sprFontLives, ord("0"), false, 0);
+
 // Setup particles
 sprite_particles = {};
 with (sprite_particles)

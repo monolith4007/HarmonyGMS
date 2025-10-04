@@ -8,3 +8,6 @@ switch (room)
 		break;
 	}
 }
+
+// Create UI elements
+instance_create_layer(0, 0, "Display", objHUD);
