@@ -119,7 +119,7 @@ function player_is_running(phase)
 			
 			// Handle ground motion
 			var input_sign = input_check(INPUT.RIGHT) - input_check(INPUT.LEFT);
-			var can_brake = (animation_index == "brake");
+			var can_brake = (animation == "brake");
 			
 			if (control_lock_time == 0)
 			{
@@ -186,9 +186,9 @@ function player_is_running(phase)
 			if (x_speed == 0 and input_sign == 0) return player_perform(player_is_standing);
 			
 			// Animate
-			if (can_brake and (animation_index != "brake" or timeline_position < timeline_max_moment(timeline_index)))
+			if (can_brake and (animation != "brake" or timeline_position < timeline_max_moment(timeline_index)))
 			{
-				if (animation_index != "brake")
+				if (animation != "brake")
 				{
 					if (mask_direction == gravity_direction and abs(x_speed) >= 4)
 					{
@@ -212,7 +212,7 @@ function player_is_running(phase)
 			{
 				var velocity = abs(x_speed) div 1;
 				var new_anim = (velocity < 6 ? "walk" : "run");
-				if (animation_index != new_anim) player_animate(new_anim);
+				if (animation != new_anim) player_animate(new_anim);
 				timeline_speed = 1 / max(8 - velocity, 1);
 				image_angle = direction;
 			}
@@ -360,12 +360,15 @@ function player_is_rolling(phase)
 			if (control_lock_time == 0)
 			{
 				var input_sign = input_check(INPUT.RIGHT) - input_check(INPUT.LEFT);
-				if (sign(x_speed) != input_sign)
+				if (input_sign != 0)
 				{
-					x_speed += roll_deceleration * input_sign;
-					if (sign(x_speed) == input_sign) x_speed = roll_deceleration * input_sign;
+					if (sign(x_speed) != input_sign)
+					{
+						x_speed += roll_deceleration * input_sign;
+						if (sign(x_speed) == input_sign) x_speed = roll_deceleration * input_sign;
+					}
+					else image_xscale = input_sign;
 				}
-				else image_xscale = input_sign;
 				
 				// Friction
 				x_speed -= min(abs(x_speed), roll_friction) * sign(x_speed);

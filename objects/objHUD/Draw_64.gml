@@ -32,6 +32,6 @@ var seconds = (time div 60) mod 60;
 var centiseconds = floor(time / 0.6) mod 100;
 
 draw_set_halign(fa_left);
-draw_text(56, 25, string(minutes) + ":" + (seconds < 10 ? "0" : "") + string(seconds) + ":" + (centiseconds < 10 ? "0" : "") + string(centiseconds));
+draw_text(56, 25, $"{minutes}:{seconds < 10 ? 0 : ""}{seconds}:{centiseconds < 10 ? 0 : ""}{centiseconds}");
 
 /* AUTHOR NOTE: for obvious reasons, the divisions for the timestamp do not respect the game framerate. */

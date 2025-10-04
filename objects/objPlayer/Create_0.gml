@@ -119,7 +119,7 @@ player_resist_slope = function(force)
 /// @param {String} name Animation to set.
 player_animate = function(name)
 {
-	animation_index = name;
+	animation = name;
 	timeline_index = animations[$ name];
 	timeline_position = 0;
 }
