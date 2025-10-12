@@ -3,7 +3,7 @@ previous_state = state;
 state = 0;
 
 // Keyboard input
-array_foreach(keycodes, function(const, command)
+array_foreach(keycodes, function (const, command)
 {
 	if (keyboard_check(const))
 	{
@@ -15,7 +15,7 @@ array_foreach(keycodes, function(const, command)
 if (gp_device != -1)
 {
 	// Buttons
-	array_foreach(buttons, function(const, command)
+	array_foreach(buttons, function (const, command)
 	{
 		if (gamepad_button_check(gp_device, const))
 		{

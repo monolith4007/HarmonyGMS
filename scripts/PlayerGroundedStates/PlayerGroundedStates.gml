@@ -29,7 +29,7 @@ function player_is_standing(phase)
 		{
 			/// @method get_cliff()
 			/// @description Finds the direction of a cliff the player is standing on.
-			var get_cliff = function()
+			var get_cliff = function ()
 			{
 				// Initialize
 				cliff_sign = 0;

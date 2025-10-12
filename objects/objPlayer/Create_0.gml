@@ -77,7 +77,7 @@ instance_create_layer(x, y, layer, objCamera, { gravity_direction });
 /// @method player_perform(action)
 /// @description Sets the given function as the player's current state.
 /// @param {Function} action State function to set.
-player_perform = function(action)
+player_perform = function (action)
 {
 	state(PHASE.EXIT);
 	state = action;
@@ -87,7 +87,7 @@ player_perform = function(action)
 
 /// @method player_rotate_mask()
 /// @description Rotates the player's virtual mask, if applicable.
-player_rotate_mask = function()
+player_rotate_mask = function ()
 {
 	static rotation_lock_time = 0;
 	if (rotation_lock_time > 0) then --rotation_lock_time;
@@ -103,7 +103,7 @@ player_rotate_mask = function()
 /// @method player_resist_slope(force)
 /// @description Applies slope friction to the player's horizontal speed, if appropriate.
 /// @param {Real} force Friction value to use.
-player_resist_slope = function(force)
+player_resist_slope = function (force)
 {
 	// Abort if...
 	if (x_speed == 0 and control_lock_time == 0) exit; // Not moving
@@ -117,7 +117,7 @@ player_resist_slope = function(force)
 /// @method player_animate(name)
 /// @description Sets the player's current animation to the given string, and their timeline to that which matches it.
 /// @param {String} name Animation to set.
-player_animate = function(name)
+player_animate = function (name)
 {
 	animation = name;
 	timeline_index = animations[$ name];
@@ -127,25 +127,25 @@ player_animate = function(name)
 /// @method player_gain_rings(num)
 /// @description Increases the player's ring count by the given amount.
 /// @param {Real} num Amount of rings to give.
-player_gain_rings = function(num)
+player_gain_rings = function (num)
 {
 	global.rings = min(global.rings + num, 999);
 	sound_play(sfxRing);
 	
 	// Gain lives
-	static ring_life_threshold = 100;
-	if (global.rings >= ring_life_threshold)
+	static ring_life_threshold = 99;
+	if (global.rings > ring_life_threshold)
 	{
 		var change = global.rings div 100;
-		player_gain_lives(change);
-		ring_life_threshold += change * 100;
+		player_gain_lives(change - ring_life_threshold div 100);
+		ring_life_threshold = change * 100 + 99;
 	}
 }
 
 /// @method player_gain_lives(num)
 /// @description Increases the player's life count by the given amount.
 /// @param {Real} num Amount of lives to give.
-player_gain_lives = function(num)
+player_gain_lives = function (num)
 {
 	lives = min(lives + num, 99);
 	music_overlay(bgmLife);

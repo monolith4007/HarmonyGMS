@@ -11,7 +11,7 @@ looping_tracks = [bgmMadGear];
 /// @param {Asset.GMSound} soundid Sound asset to set loop points for.
 /// @param {Real} loop_start Start point of the loop in seconds.
 /// @param {Real} loop_end End point of the loop in seconds.
-var set_music_loop = function(soundid, loop_start, loop_end)
+var set_music_loop = function (soundid, loop_start, loop_end)
 {
 	audio_sound_loop_start(soundid, loop_start);
 	audio_sound_loop_end(soundid, loop_end);
@@ -24,7 +24,7 @@ var set_music_loop = function(soundid, loop_start, loop_end)
 /// @method play_music(soundid)
 /// @description Plays the given music track, muting it if an overlay is playing.
 /// @param {Asset.GMSound} soundid Sound asset to play.
-play_music = function(soundid)
+play_music = function (soundid)
 {
 	audio_stop_sound(music);
 	music = audio_play_sound(soundid, 1, array_contains(looping_tracks, soundid), global.volume_music * (overlay == -1));

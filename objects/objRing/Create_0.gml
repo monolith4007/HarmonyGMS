@@ -1,6 +1,6 @@
 /// @description Initialize
 image_speed = 0;
-reaction = function(inst)
+reaction = function (inst)
 {
 	// Abort if not intersecting the ring
 	if (not player_in_object(inst)) exit;

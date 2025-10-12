@@ -11,7 +11,7 @@ function player_calc_ground_normal(ox, oy, rot)
 	/// @param {Real} px x-coordinate of the point.
 	/// @param {Real} py y-coordinate of the point.
 	/// @returns {Bool}
-	var point_in_solid = function(px, py)
+	var point_in_solid = function (px, py)
 	{
 		for (var n = ds_list_size(solid_objects) - 1; n > -1; --n)
 		{

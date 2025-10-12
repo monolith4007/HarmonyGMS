@@ -38,7 +38,7 @@ with (sprite_particles)
 }
 
 // Create global controllers
-call_later(1, time_source_units_frames, function()
+call_later(1, time_source_units_frames, function ()
 {
 	instance_create_layer(0, 0, "Controllers", ctrlWindow);
 	instance_create_layer(0, 0, "Controllers", ctrlInput);
