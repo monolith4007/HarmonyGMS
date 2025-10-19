@@ -83,7 +83,7 @@ player_perform = function (action)
 	state = action;
 	state_changed = true;
 	state(PHASE.ENTER);
-}
+};
 
 /// @method player_rotate_mask()
 /// @description Rotates the player's virtual mask, if applicable.
@@ -96,9 +96,9 @@ player_rotate_mask = function ()
 	if (mask_direction != new_rotation and (landed or rotation_lock_time == 0))
 	{
 		mask_direction = new_rotation;
-		rotation_lock_time = (landed ? 0 : max(16 - abs(x_speed * 2) div 1, 0));
+		rotation_lock_time = (not landed) * max(16 - abs(x_speed * 2) div 1, 0);
 	}
-}
+};
 
 /// @method player_resist_slope(force)
 /// @description Applies slope friction to the player's horizontal speed, if appropriate.
@@ -112,7 +112,7 @@ player_resist_slope = function (force)
 	
 	// Apply
 	x_speed -= dsin(local_direction) * force;
-}
+};
 
 /// @method player_animate(name)
 /// @description Sets the player's current animation to the given string, and their timeline to that which matches it.
@@ -122,7 +122,7 @@ player_animate = function (name)
 	animation = name;
 	timeline_index = animations[$ name];
 	timeline_position = 0;
-}
+};
 
 /// @method player_gain_rings(num)
 /// @description Increases the player's ring count by the given amount.
@@ -140,7 +140,7 @@ player_gain_rings = function (num)
 		player_gain_lives(change - ring_life_threshold div 100);
 		ring_life_threshold = change * 100 + 99;
 	}
-}
+};
 
 /// @method player_gain_lives(num)
 /// @description Increases the player's life count by the given amount.
@@ -149,4 +149,4 @@ player_gain_lives = function (num)
 {
 	lives = min(lives + num, 99);
 	music_overlay(bgmLife);
-}
+};

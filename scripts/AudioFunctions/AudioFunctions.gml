@@ -9,15 +9,15 @@ function sound_play(soundid)
 }
 
 /// @function music_overlay(soundid)
-/// @description Plays the given music track as an overlay, muting the last queued track until it has finished playing.
+/// @description Plays the given music track as an overlay, muting the stream until it has finished playing.
 /// @param {Asset.GMSound} soundid Sound asset to play.
 function music_overlay(soundid)
 {
 	with (ctrlMusic)
 	{
-		// Stop existing overlay, otherwise mute queued track
+		// Stop existing overlay, otherwise mute stream
 		if (overlay != -1) audio_stop_sound(overlay);
-		else audio_sound_gain(music, 0, 0);
+		else audio_sound_gain(stream, 0, 0);
 		
 		// Play overlay
 		overlay = audio_play_sound(soundid, 2, false, global.volume_music);
@@ -46,7 +46,7 @@ function music_enqueue(soundid, priority)
 }
 
 /// @function music_dequeue(soundid)
-/// @description Removes the given music track from the queue. If it had the highest priority, the track below it is then played.
+/// @description Removes the given music track from the queue. If it was streaming, the track below it is then played.
 /// @param {Asset.GMSound} soundid Sound asset to remove.
 function music_dequeue(soundid)
 {

@@ -21,7 +21,7 @@ function player_calc_ground_normal(ox, oy, rot)
 			}
 		}
 		return false;
-	}
+	};
 	
 	// Setup angle sensors
 	var sensor_x = [ox, ox];

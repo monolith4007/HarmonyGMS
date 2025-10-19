@@ -12,4 +12,4 @@ reaction = function (inst)
 		particle_spawn("ring_sparkle", x, y);
 		instance_destroy();
 	}
-}
+};

@@ -2,7 +2,7 @@
 image_speed = 0;
 
 queue = ds_priority_create();
-music = -1;
+stream = -1;
 overlay = -1;
 looping_tracks = [bgmMadGear];
 
@@ -16,16 +16,16 @@ var set_music_loop = function (soundid, loop_start, loop_end)
 	audio_sound_loop_start(soundid, loop_start);
 	audio_sound_loop_end(soundid, loop_end);
 	array_push(looping_tracks, soundid);
-}
+};
 
 // TODO: define loops points for music (if applicable)
 // Looping tracks that don't have loop points should be added directly into the array
 
 /// @method play_music(soundid)
-/// @description Plays the given music track, muting it if an overlay is playing.
+/// @description Plays the given music track, muting it if an overlay is playing, and sets it as the current stream.
 /// @param {Asset.GMSound} soundid Sound asset to play.
 play_music = function (soundid)
 {
-	audio_stop_sound(music);
-	music = audio_play_sound(soundid, 1, array_contains(looping_tracks, soundid), global.volume_music * (overlay == -1));
-}
+	audio_stop_sound(stream);
+	stream = audio_play_sound(soundid, 1, array_contains(looping_tracks, soundid), global.volume_music * (overlay == -1));
+};
