@@ -6,21 +6,37 @@ function player_eject_wall(inst)
 {
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
+	var inside = (collision_point(x div 1, y div 1, inst, true, false) != noone);
 	
-	for (var ox = 0; ox < x_wall_radius; ++ox)
+	for (var ox = 1; ox <= x_wall_radius; ++ox)
 	{
-		// Left of the wall
-		if (player_leg_in_object(inst, ox + 1, 0))
+		if (not inside)
 		{
-			x -= cosine * (x_wall_radius - ox);
-			y += sine * (x_wall_radius - ox);
-			return 1;
+			// Left of the wall
+			if (player_leg_in_object(inst, ox, 0))
+			{
+				x -= cosine * (x_wall_radius - ox + 1);
+				y += sine * (x_wall_radius - ox + 1);
+				return 1;
+			}
+			else if (player_leg_in_object(inst, -ox, 0)) // Right of the wall
+			{
+				x += cosine * (x_wall_radius - ox + 1);
+				y -= sine * (x_wall_radius - ox + 1);
+				return -1;
+			}
 		}
-		else if (player_leg_in_object(inst, -(ox + 1), 0)) // Right of the wall
+		else if (not player_leg_in_object(inst, ox, 0)) // Right of the wall
 		{
-			x += cosine * (x_wall_radius - ox);
-			y -= sine * (x_wall_radius - ox);
+			x += cosine * (x_wall_radius + ox);
+			y -= sine * (x_wall_radius + ox);
 			return -1;
+		}
+		else if (not player_leg_in_object(inst, -ox, 0)) // Left of the wall
+		{
+			x -= cosine * (x_wall_radius + ox);
+			y += sine * (x_wall_radius + ox);
+			return 1;
 		}
 	}
 	return undefined;
@@ -47,34 +63,22 @@ function player_resolve_angle()
 		{
 			if (player_leg_in_object(inst, -x_radius, y_radius + y_tile_reach)) ramp_edge |= 1;
 			if (player_leg_in_object(inst, x_radius, y_radius + y_tile_reach)) ramp_edge |= 2;
+			if (player_leg_in_object(inst, 0, y_radius + y_tile_reach)) ramp_edge |= 4;
 		}
 	}
 	
 	// Setup offset point from which the normal should be calculated
-	var x_int = x div 1;
-	var y_int = y div 1;
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
+	var ox = x div 1 + sine * y_radius;
+	var oy = y div 1 + cosine * y_radius;
 	
 	// Check for steep angle ranges at ramp edges
 	ground_snap = true;
-	if (ramp_edge != 0 and ramp_edge != 3)
+	if (ramp_edge == 1 or ramp_edge == 2)
 	{
-		if (ramp_edge == 2)
-		{
-			var ox = x_int - cosine * x_radius + sine * y_radius + sine;
-			var oy = y_int + sine * x_radius + cosine * y_radius + cosine;
-			var rot = mask_direction + 90;
-		}
-		else
-		{
-			var ox = x_int + cosine * x_radius + sine * y_radius + sine;
-			var oy = y_int - sine * x_radius + cosine * y_radius + cosine;
-			var rot = mask_direction + 270;
-		}
-		
 		// Calculate...
-		var perp_dir = player_calc_ground_normal(ox, oy, rot); // The normal perpendicular to the ramp edge
+		var perp_dir = player_calc_ground_normal(ox + sine, oy + cosine, mask_direction + (ramp_edge == 2 ? 90 : 270)); // The normal of the ramp edge
 		var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
 		
 		// If the difference is too steep, do not snap down to the ground, and abort angle calculation
@@ -93,13 +97,13 @@ function player_resolve_angle()
 		{
 			if (mask_edge == 1)
 			{
-				var ox = x_int - cosine * x_radius + sine * y_radius;
-				var oy = y_int + sine * x_radius + cosine * y_radius;
+				ox -= cosine * x_radius;
+				oy += sine * x_radius;
 			}
 			else
 			{
-				var ox = x_int + cosine * x_radius + sine * y_radius;
-				var oy = y_int - sine * x_radius + cosine * y_radius;
+				ox += cosine * x_radius;
+				oy -= sine * x_radius;
 			}
 			new_dir = player_calc_ground_normal(ox, oy, mask_direction);
 		}
@@ -215,12 +219,12 @@ function player_in_bounds()
 			y = bottom - x_radius;
 			x_speed = 0;
 		}
-		if (gravity_direction == 90 and x1 > right)
+		if (x1 > right and gravity_direction == 90)
 		{
 			x = right + y_radius;
 			return false;
 		}
-		if (gravity_direction == 270 and x2 < left)
+		if (x2 < left and gravity_direction == 270)
 		{
 			x = left - y_radius;
 			return false;
@@ -238,12 +242,12 @@ function player_in_bounds()
 			x = right - x_radius;
 			x_speed = 0;
 		}
-		if (gravity_direction == 0 and y1 > bottom)
+		if (y1 > bottom and gravity_direction == 0)
 		{
 			y = bottom + y_radius;
 			return false;
 		}
-		if (gravity_direction == 180 and y2 < top)
+		if (y2 < top and gravity_direction == 180)
 		{
 			y = top - y_radius;
 			return false;

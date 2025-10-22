@@ -43,10 +43,9 @@ function player_calc_ground_normal(ox, oy, rot)
 	}
 	
 	// Extend / regress angle sensors
-	var reps = y_tile_reach * 2;
 	for (var n = 0; n < 2; ++n)
 	{
-		repeat (reps)
+		repeat (y_tile_reach)
 		{
 			if (not point_in_solid(sensor_x[n], sensor_y[n]))
 			{
@@ -55,7 +54,7 @@ function player_calc_ground_normal(ox, oy, rot)
 			}
 			else break;
 		}
-		repeat (reps)
+		repeat (y_tile_reach)
 		{
 			if (point_in_solid(sensor_x[n] - sine, sensor_y[n] - cosine))
 			{
@@ -80,8 +79,8 @@ function player_register_zone_objects()
 	// Setup bounding rectangle
 	var x_int = x div 1;
 	var y_int = y div 1;
-	var xrad = x_wall_radius;
-	var yrad = y_tile_reach * 2 + y_radius + 1;
+	var xrad = x_wall_radius + 1;
+	var yrad = y_tile_reach + y_radius + 1;
 	
 	// Detect instances intersecting the rectangle
 	var zone_objects = ds_list_create();
@@ -98,7 +97,7 @@ function player_register_zone_objects()
 		// Register solid instances; skip the current instance if...
 		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
 		if (inst.semisolid and player_arms_in_object(inst)) continue; // Passing through
-		if (not (collision_layer & inst.collision_layer)) continue; // On mismatching collision layers
+		if ((collision_layer & inst.collision_layer) == 0) continue; // On mismatching collision layers
 		
 		ds_list_add(solid_objects, inst);
 	}

@@ -46,8 +46,7 @@ function player_is_falling(phase)
 			// Fall
 			if (y_speed < gravity_cap)
 			{
-				y_speed += gravity_force;
-				if (y_speed > gravity_cap) y_speed = gravity_cap;
+				y_speed = min(y_speed + gravity_force, gravity_cap);
 			}
 			
 			// Straighten
@@ -133,8 +132,7 @@ function player_is_jumping(phase)
 			// Fall
 			if (y_speed < gravity_cap)
 			{
-				y_speed += gravity_force;
-				if (y_speed > gravity_cap) y_speed = gravity_cap;
+				y_speed = min(y_speed + gravity_force, gravity_cap);
 			}
 			break;
 		}

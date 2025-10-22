@@ -29,7 +29,7 @@ function player_is_standing(phase)
 		{
 			rolling = false;
 			
-			// Check if standing on a cliff
+			// Check if on a cliff
 			cliff_sign = 0;
 			var edge = 0;
 			var height = y_radius + y_tile_reach;
@@ -39,13 +39,13 @@ function player_is_standing(phase)
 				var inst = solid_objects[| n];
 				
 				// Check sensors
+				if (player_leg_in_object(inst, 0, height)) break; // Center collision means not on a cliff
 				if (player_leg_in_object(inst, -x_radius, height)) edge |= 1; // Left
 				if (player_leg_in_object(inst, x_radius, height)) edge |= 2; // Right
-				if (player_leg_in_object(inst, 0, height)) edge |= 4; // Center
 			}
 			
 			// Check if only one sensor is grounded
-			if (edge < 3) cliff_sign = (edge == 1 ? 1 : -1);
+			if (n == -1 and edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
 			
 			// Animate
 			player_animate(cliff_sign != 0 ? "teeter" : "idle");
@@ -134,8 +134,7 @@ function player_is_running(phase)
 						image_xscale = input_sign;
 						if (abs(x_speed) < speed_cap)
 						{
-							x_speed += acceleration * input_sign;
-							if (abs(x_speed) > speed_cap) x_speed = speed_cap * input_sign;
+							x_speed = min(abs(x_speed) + acceleration, speed_cap) * input_sign;
 						}
 					}
 				}
