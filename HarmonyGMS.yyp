@@ -50,6 +50,7 @@
   },
   "name":"HarmonyGMS",
   "resources":[
+    {"id":{"name":"Credits","path":"notes/Credits/Credits.yy",},},
     {"id":{"name":"ctrlInput","path":"objects/ctrlInput/ctrlInput.yy",},},
     {"id":{"name":"ctrlMusic","path":"objects/ctrlMusic/ctrlMusic.yy",},},
     {"id":{"name":"ctrlWindow","path":"objects/ctrlWindow/ctrlWindow.yy",},},

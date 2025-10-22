@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"Credits",
+  "name":"Credits",
+  "parent":{
+    "name":"HarmonyGMS",
+    "path":"HarmonyGMS.yyp",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

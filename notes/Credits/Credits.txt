@@ -1,0 +1,49 @@
+Joevan Salmon-Johnson (AKA VectorSatyr, formerly AeroGP) - Sonic Studio Engine, "Basic Sonic Engine", Sonic For GMS.
+* https://forums.sonicretro.org/index.php?threads/new-game-maker-studio-sonic-engine.31723/
+* https://forums.sonicretro.org/index.php?threads/question-about-game-maker-sonic-engines-accuracy.34845/page-2#post-841401
+* https://codeberg.org/vectorsatyr/sonic-for-gms
+
+DarkD04, joshyflip, Chopppers, KGLBombyPig - Harmony Framework.
+* https://github.com/DarkD04/Harmony-Framework
+
+This project uses a stripped-down version of the Sonic Studio Engine template, and features various modifications from VectorSatyr's other templates.
+It also uses the angle detection method from the Harmony Framework.
+
+[Sonic For GMS copyright notice]
+BSD 2-Clause License
+
+Copyright (c) 2019, Joevan Salmon-Johnson
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=============================================================================================================================
+
+Ian Monsen (AKA 1234567890moomoo) - Mad Gear Zone background music remix.
+> https://youtu.be/TCY7k_7pD0Y?si=bg4lX6nbZElMxjop
+
+=============================================================================================================================
+
+Additional thanks and credit goes to everyone else who contributed to the aforementioned projects in any way.
+All sprites, sounds and music belong to SEGA, Sonic Team, and their respective owners.
+This project is made in the GameMaker game engine by YoYo Games.
+All rights to Sonic the Hedgehog belong to SEGA and Sonic Team.
