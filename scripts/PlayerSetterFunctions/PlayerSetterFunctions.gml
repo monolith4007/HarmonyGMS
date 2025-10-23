@@ -1,7 +1,7 @@
 /// @function player_eject_wall(inst)
 /// @description Moves the sides of the player's virtual mask out of collision with the given solid.
 /// @param {Id.Instance} inst Instance to eject from.
-/// @returns {Real|Undefined} Sign of the wall from the player, or undefined on failure to relocate.
+/// @returns {Real|Undefined} Sign of the wall from the player, or undefined on failure to reposition.
 function player_eject_wall(inst)
 {
 	var sine = dsin(mask_direction);
@@ -95,6 +95,7 @@ function player_resolve_angle()
 		var new_dir = mask_direction;
 		if (mask_edge != 3)
 		{
+			// Reposition offset point to the grounded side of the player's virtual mask
 			if (mask_edge == 1)
 			{
 				ox -= cosine * x_radius;
@@ -174,7 +175,7 @@ function player_refresh_physics()
 
 /// @function player_in_bounds()
 /// @description Confines the player inside the camera boundary.
-/// @returns {Bool} Whether the player has fallen below the boundary.
+/// @returns {Bool} Whether the player is inside the boundary or has fallen below it.
 function player_in_bounds()
 {
 	// Check if already inside (early out)
@@ -214,44 +215,41 @@ function player_in_bounds()
 			y = top + x_radius;
 			x_speed = 0;
 		}
-		if (y2 > bottom)
+		else if (y2 > bottom)
 		{
 			y = bottom - x_radius;
 			x_speed = 0;
 		}
-		if (x1 > right and gravity_direction == 90)
+		else if (x1 > right and gravity_direction == 90)
 		{
 			x = right + y_radius;
 			return false;
 		}
-		if (x2 < left and gravity_direction == 270)
+		else if (x2 < left and gravity_direction == 270)
 		{
 			x = left - y_radius;
 			return false;
 		}
 	}
-	else
+	else if (x1 < left)
 	{
-		if (x1 < left)
-		{
-			x = left + x_radius;
-			x_speed = 0;
-		}
-		if (x2 > right)
-		{
-			x = right - x_radius;
-			x_speed = 0;
-		}
-		if (y1 > bottom and gravity_direction == 0)
-		{
-			y = bottom + y_radius;
-			return false;
-		}
-		if (y2 < top and gravity_direction == 180)
-		{
-			y = top - y_radius;
-			return false;
-		}
+		x = left + x_radius;
+		x_speed = 0;
+	}
+	else if (x2 > right)
+	{
+		x = right - x_radius;
+		x_speed = 0;
+	}
+	else if (y1 > bottom and gravity_direction == 0)
+	{
+		y = bottom + y_radius;
+		return false;
+	}
+	else if (y2 < top and gravity_direction == 180)
+	{
+		y = top - y_radius;
+		return false;
 	}
 	return true;
 }

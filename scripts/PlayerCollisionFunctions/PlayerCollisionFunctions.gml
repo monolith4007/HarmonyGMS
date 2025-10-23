@@ -26,12 +26,12 @@ function player_arms_in_object(obj)
 		collision_line(x_int - x_wall_radius, y_int, x_int + x_wall_radius, y_int, obj, true, false) != noone);
 }
 
-/// @function player_body_in_object(obj, ylen)
+/// @function player_body_in_object(obj, yrad)
 /// @description Checks if the given instance's mask intersects the upper or lower half of the player's virtual mask.
 /// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
-/// @param {Real} ylen Distance in pixels to extend the player's mask vertically.
+/// @param {Real} yrad Distance in pixels to extend the player's mask vertically.
 /// @returns {Bool}
-function player_body_in_object(obj, ylen)
+function player_body_in_object(obj, yrad)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
@@ -40,19 +40,19 @@ function player_body_in_object(obj, ylen)
 	
 	var x1 = x_int - cosine * x_radius;
 	var y1 = y_int + sine * x_radius;
-	var x2 = x_int + cosine * x_radius + sine * ylen;
-	var y2 = y_int - sine * x_radius + cosine * ylen;
+	var x2 = x_int + cosine * x_radius + sine * yrad;
+	var y2 = y_int - sine * x_radius + cosine * yrad;
 	
 	return collision_rectangle(x1, y1, x2, y2, obj, true, false) != noone;
 }
 
-/// @function player_leg_in_object(obj, xoff, ylen)
+/// @function player_leg_in_object(obj, xoff, yrad)
 /// @description Checks if the given instance's mask intersects a line from the player's position.
 /// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
 /// @param {Real} xoff Distance in pixels to offset the line horizontally.
-/// @param {Real} ylen Distance in pixels to extend the line downward.
+/// @param {Real} yrad Distance in pixels to extend the line downward.
 /// @returns {Bool}
-function player_leg_in_object(obj, xoff, ylen)
+function player_leg_in_object(obj, xoff, yrad)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
@@ -61,8 +61,8 @@ function player_leg_in_object(obj, xoff, ylen)
 	
 	var x1 = x_int + cosine * xoff;
 	var y1 = y_int - sine * xoff;
-	var x2 = x_int + cosine * xoff + sine * ylen;
-	var y2 = y_int - sine * xoff + cosine * ylen;
+	var x2 = x_int + cosine * xoff + sine * yrad;
+	var y2 = y_int - sine * xoff + cosine * yrad;
 	
 	return collision_line(x1, y1, x2, y2, obj, true, false) != noone;
 }

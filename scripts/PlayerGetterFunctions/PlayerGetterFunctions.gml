@@ -52,11 +52,7 @@ function player_calc_ground_normal(ox, oy, rot)
 				sensor_x[n] += sine;
 				sensor_y[n] += cosine;
 			}
-			else break;
-		}
-		repeat (y_tile_reach)
-		{
-			if (point_in_solid(sensor_x[n] - sine, sensor_y[n] - cosine))
+			else if (point_in_solid(sensor_x[n] - sine, sensor_y[n] - cosine))
 			{
 				sensor_x[n] -= sine;
 				sensor_y[n] -= cosine;
