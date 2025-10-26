@@ -13,26 +13,26 @@ function player_eject_wall(inst)
 		if (not inside)
 		{
 			// Left of the wall
-			if (player_leg_in_object(inst, ox, 0))
+			if (player_beam_collision(inst, ox, 0))
 			{
 				x -= cosine * (x_wall_radius - ox + 1);
 				y += sine * (x_wall_radius - ox + 1);
 				return 1;
 			}
-			else if (player_leg_in_object(inst, -ox, 0)) // Right of the wall
+			else if (player_beam_collision(inst, -ox, 0)) // Right of the wall
 			{
 				x += cosine * (x_wall_radius - ox + 1);
 				y -= sine * (x_wall_radius - ox + 1);
 				return -1;
 			}
 		}
-		else if (not player_leg_in_object(inst, ox, 0)) // Right of the wall
+		else if (not player_beam_collision(inst, ox, 0)) // Right of the wall
 		{
 			x += cosine * (x_wall_radius + ox);
 			y -= sine * (x_wall_radius + ox);
 			return -1;
 		}
-		else if (not player_leg_in_object(inst, -ox, 0)) // Left of the wall
+		else if (not player_beam_collision(inst, -ox, 0)) // Left of the wall
 		{
 			x -= cosine * (x_wall_radius + ox);
 			y += sine * (x_wall_radius + ox);
@@ -55,15 +55,15 @@ function player_resolve_angle()
 		var inst = [(n > -1 ? tile_layers[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
 		
 		// Check directly below
-		if (player_leg_in_object(inst, -x_radius, y_radius + 1)) mask_edge |= 1;
-		if (player_leg_in_object(inst, x_radius, y_radius + 1)) mask_edge |= 2;
+		if (player_beam_collision(inst, -x_radius, y_radius + 1)) mask_edge |= 1;
+		if (player_beam_collision(inst, x_radius, y_radius + 1)) mask_edge |= 2;
 		
 		// Check for ramp edges
 		if (not landed)
 		{
-			if (player_leg_in_object(inst, -x_radius, y_radius + y_tile_reach)) ramp_edge |= 1;
-			if (player_leg_in_object(inst, x_radius, y_radius + y_tile_reach)) ramp_edge |= 2;
-			if (player_leg_in_object(inst, 0, y_radius + y_tile_reach)) ramp_edge |= 4;
+			if (player_beam_collision(inst, -x_radius, y_radius + y_tile_reach)) ramp_edge |= 1;
+			if (player_beam_collision(inst, x_radius, y_radius + y_tile_reach)) ramp_edge |= 2;
+			if (player_beam_collision(inst, 0, y_radius + y_tile_reach)) ramp_edge |= 4;
 		}
 	}
 	

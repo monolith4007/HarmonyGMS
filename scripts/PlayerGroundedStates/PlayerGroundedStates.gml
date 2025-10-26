@@ -39,13 +39,13 @@ function player_is_standing(phase)
 				var inst = [(n > -1 ? tile_layers[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
 				
 				// Check sensors
-				if (player_leg_in_object(inst, 0, height)) break; // Center collision means not on a cliff
-				if (player_leg_in_object(inst, -x_radius, height)) edge |= 1; // Left
-				if (player_leg_in_object(inst, x_radius, height)) edge |= 2; // Right
+				if (player_beam_collision(inst, 0, height)) break; // Center collision means not on a cliff
+				if (player_beam_collision(inst, -x_radius, height)) edge |= 1; // Left
+				if (player_beam_collision(inst, x_radius, height)) edge |= 2; // Right
 			}
 			
 			// Check if only one sensor is grounded
-			if (n == -1 and edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
+			if (n < 0 and edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
 			
 			// Animate
 			player_animate(cliff_sign != 0 ? "teeter" : "idle");

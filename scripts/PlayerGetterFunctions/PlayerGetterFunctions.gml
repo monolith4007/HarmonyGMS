@@ -74,9 +74,10 @@ function player_calc_ground_normal(ox, oy, rot)
 	return point_direction(sensor_x[0], sensor_y[0], sensor_x[1], sensor_y[1]) div 1;
 }
 
-/// @function player_register_zone_objects()
+/// @function player_detect_entities()
 /// @description Finds any instances intersecting a minimum bounding rectangle centered on the player, executes their reaction, and registers their solidity.
-function player_register_zone_objects()
+/// It also resets the array containing the tile layers in which the player can interact with, and removes ones which they can't.
+function player_detect_entities()
 {
 	// Delist solids
 	ds_list_clear(solid_objects);
@@ -101,7 +102,7 @@ function player_register_zone_objects()
 		
 		// Register solid instances; skip the current instance if...
 		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
-		if (inst.semisolid and player_arms_in_object(inst)) continue; // Passing through
+		if (inst.semisolid and player_ray_collision(inst)) continue; // Passing through
 		
 		ds_list_add(solid_objects, inst);
 	}
@@ -117,7 +118,7 @@ function player_register_zone_objects()
 	];
 	
 	array_delete(tile_layers, collision_layer ^ 1, 1);
-	if (player_arms_in_object(tile_layers[2]))
+	if (player_ray_collision(tile_layers[2]))
 	{
 		array_delete(tile_layers, 2, 1);
 	}

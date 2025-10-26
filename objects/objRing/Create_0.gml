@@ -3,7 +3,7 @@ image_speed = 0;
 reaction = function (inst)
 {
 	// Abort if not intersecting the ring
-	if (not player_in_object(inst)) exit;
+	if (not player_collision(inst)) exit;
 	
 	// Collect
 	player_gain_rings(1);

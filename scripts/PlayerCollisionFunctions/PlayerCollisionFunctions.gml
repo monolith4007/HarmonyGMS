@@ -1,8 +1,8 @@
-/// @function player_in_object(obj)
-/// @description Checks if the given instance's mask intersects the player's virtual mask.
-/// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
+/// @function player_collision(obj)
+/// @description Checks if the given entity's mask intersects the player's virtual mask.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
 /// @returns {Bool}
-function player_in_object(obj)
+function player_collision(obj)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
@@ -12,26 +12,12 @@ function player_in_object(obj)
 		collision_rectangle(x_int - x_radius, y_int - y_radius, x_int + x_radius, y_int + y_radius, obj, true, false) != noone);
 }
 
-/// @function player_arms_in_object(obj)
-/// @description Checks if the given instance's mask intersects the sides of the player's virtual mask.
-/// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
-/// @returns {Bool}
-function player_arms_in_object(obj)
-{
-	var x_int = x div 1;
-	var y_int = y div 1;
-	
-	return (mask_direction mod 180 != 0 ?
-		collision_line(x_int, y_int - x_wall_radius, x_int, y_int + x_wall_radius, obj, true, false) != noone :
-		collision_line(x_int - x_wall_radius, y_int, x_int + x_wall_radius, y_int, obj, true, false) != noone);
-}
-
-/// @function player_body_in_object(obj, yrad)
-/// @description Checks if the given instance's mask intersects the upper or lower half of the player's virtual mask.
-/// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
+/// @function player_part_collision(obj, yrad)
+/// @description Checks if the given entity's mask intersects a vertical portion of the player's virtual mask.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
 /// @param {Real} yrad Distance in pixels to extend the player's mask vertically.
 /// @returns {Bool}
-function player_body_in_object(obj, yrad)
+function player_part_collision(obj, yrad)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
@@ -46,13 +32,34 @@ function player_body_in_object(obj, yrad)
 	return collision_rectangle(x1, y1, x2, y2, obj, true, false) != noone;
 }
 
-/// @function player_leg_in_object(obj, xoff, yrad)
-/// @description Checks if the given instance's mask intersects a line from the player's position.
-/// @param {Asset.GMObject|Id.Instance} obj Object or instance to check.
+/// @function player_ray_collision(obj, [xdia], [yoff])
+/// @description Checks if the given entity's mask intersects a line from the player's position.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Real} [xdia] Distance in pixels to extend the line horizontally on both ends (optional, default is the player's wall radius).
+/// @param {Real} [yoff] Distance in pixels to offset the line vertically (optional, default is 0).
+/// @returns {Bool}
+function player_ray_collision(obj, xdia = x_wall_radius, yoff = 0)
+{
+	var x_int = x div 1;
+	var y_int = y div 1;
+	var sine = dsin(mask_direction);
+	var cosine = dcos(mask_direction);
+	
+	var x1 = x_int - cosine * xdia + sine * yoff;
+	var y1 = y_int + sine * xdia + cosine * yoff;
+	var x2 = x_int + cosine * xdia + sine * yoff;
+	var y2 = y_int - sine * xdia + cosine * yoff;
+	
+	return collision_line(x1, y1, x2, y2, obj, true, false) != noone;
+}
+
+/// @function player_beam_collision(obj, xoff, yrad)
+/// @description Checks if the given entity's mask intersects a line from the player's position.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
 /// @param {Real} xoff Distance in pixels to offset the line horizontally.
 /// @param {Real} yrad Distance in pixels to extend the line downward.
 /// @returns {Bool}
-function player_leg_in_object(obj, xoff, yrad)
+function player_beam_collision(obj, xoff, yrad)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;

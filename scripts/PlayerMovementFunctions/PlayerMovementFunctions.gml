@@ -24,7 +24,7 @@ function player_move_on_ground()
 		player_in_bounds(); // TODO: add death state and call it if this is false
 		
 		// Register nearby instances
-		player_register_zone_objects();
+		player_detect_entities();
 		
 		// Handle wall collision
 		var inst = player_get_wall();
@@ -67,7 +67,7 @@ function player_move_in_air()
 		player_in_bounds();
 		
 		// Register nearby instances
-		player_register_zone_objects();
+		player_detect_entities();
 		
 		// Handle wall collision
 		var inst = player_get_wall();
@@ -147,7 +147,7 @@ function player_move_in_air()
 		player_in_bounds();
 		
 		// Register nearby instances
-		player_register_zone_objects();
+		player_detect_entities();
 		
 		// Handle wall collision
 		var inst = player_get_wall();
@@ -170,7 +170,7 @@ function player_move_in_air()
 		player_in_bounds();
 		
 		// Register nearby instances
-		player_register_zone_objects();
+		player_detect_entities();
 		
 		// Handle ground collision
 		if (y_speed >= 0)

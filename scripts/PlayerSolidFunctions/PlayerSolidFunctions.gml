@@ -6,13 +6,13 @@ function player_get_wall()
 	for (var n = array_length(tile_layers) - 1; n > -1; --n)
 	{
 		var inst = tile_layers[n];
-		if (player_arms_in_object(inst)) return inst;
+		if (player_ray_collision(inst)) return inst;
 	}
 	
 	for (n = ds_list_size(solid_objects) - 1; n > -1; --n)
 	{
 		inst = solid_objects[| n];
-		if (player_arms_in_object(inst)) return inst;
+		if (player_ray_collision(inst)) return inst;
 	}
 	
 	return noone;
@@ -29,13 +29,13 @@ function player_get_floor(height)
 		for (var n = array_length(tile_layers) - 1; n > -1; --n)
 		{
 			var inst = tile_layers[n];
-			if (player_body_in_object(inst, oy)) return [inst, oy];
+			if (player_ray_collision(inst, x_radius, oy)) return [inst, oy];
 		}
 		
 		for (n = ds_list_size(solid_objects) - 1; n > -1; --n)
 		{
 			inst = solid_objects[| n];
-			if (player_body_in_object(inst, oy)) return [inst, oy];
+			if (player_ray_collision(inst, x_radius, oy)) return [inst, oy];
 		}
 	}
 	
@@ -53,7 +53,7 @@ function player_get_ceiling(height)
 		for (var n = array_length(tile_layers) - 1; n > -1; --n)
 		{
 			var inst = tile_layers[n];
-			if (player_body_in_object(inst, -oy) and n != 2) // n == 2 -> semisolid layer
+			if (player_ray_collision(inst, x_radius, -oy) and n != 2) // n == 2 -> semisolid layer
 			{
 				return [inst, oy];
 			}
@@ -62,7 +62,7 @@ function player_get_ceiling(height)
 		for (n = ds_list_size(solid_objects) - 1; n > -1; --n)
 		{
 			inst = solid_objects[| n];
-			if (player_body_in_object(inst, -oy) and not inst.semisolid) return [inst, oy];
+			if (player_ray_collision(inst, x_radius, -oy) and not inst.semisolid) return [inst, oy];
 		}
 	}
 	
