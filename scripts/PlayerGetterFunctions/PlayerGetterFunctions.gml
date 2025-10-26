@@ -13,13 +13,22 @@ function player_calc_ground_normal(ox, oy, rot)
 	/// @returns {Bool}
 	var point_in_solid = function (px, py)
 	{
-		for (var n = ds_list_size(solid_objects) - 1; n > -1; --n)
+		for (var n = array_length(tile_layers) - 1; n > -1; --n)
+		{
+			if (collision_point(px, py, tile_layers[n], true, false) != noone)
+			{
+				return true;
+			}
+		}
+		
+		for (n = ds_list_size(solid_objects) - 1; n > -1; --n)
 		{
 			if (collision_point(px, py, solid_objects[| n], true, false) != noone)
 			{
 				return true;
 			}
 		}
+		
 		return false;
 	};
 	
@@ -93,9 +102,23 @@ function player_register_zone_objects()
 		// Register solid instances; skip the current instance if...
 		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
 		if (inst.semisolid and player_arms_in_object(inst)) continue; // Passing through
-		if ((collision_layer & inst.collision_layer) == 0) continue; // On mismatching collision layers
 		
 		ds_list_add(solid_objects, inst);
 	}
 	ds_list_destroy(zone_objects);
+	
+	// Refresh tile layers and delist invalid ones
+	tile_layers =
+	[
+		layer_tilemap_get_id("TilesLayer0"),
+		layer_tilemap_get_id("TilesLayer1"),
+		layer_tilemap_get_id("TilesMain"),
+		layer_tilemap_get_id("TilesSemisolid")
+	];
+	
+	array_delete(tile_layers, collision_layer ^ 1, 1);
+	if (player_arms_in_object(tile_layers[2]))
+	{
+		array_delete(tile_layers, 2, 1);
+	}
 }

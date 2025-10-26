@@ -51,11 +51,12 @@ gravity_direction = 0;
 local_direction = 0;
 mask_direction = 0;
 
-collision_layer = 1;
+collision_layer = 0;
 
 cliff_sign = 0;
 
 solid_objects = ds_list_create();
+tile_layers = [];
 
 // Animations
 animations =
