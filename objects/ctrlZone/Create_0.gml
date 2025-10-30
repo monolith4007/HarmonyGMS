@@ -7,7 +7,7 @@ time_limit = 36000;
 time_over = false;
 time_enabled = true;
 
-alarm[0] = 5;
+//alarm[0] = 5;
 
 // Identify stage
 switch (room)

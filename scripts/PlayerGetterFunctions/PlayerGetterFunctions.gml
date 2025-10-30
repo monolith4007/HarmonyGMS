@@ -13,22 +13,11 @@ function player_calc_ground_normal(ox, oy, rot)
 	/// @returns {Bool}
 	var point_in_solid = function (px, py)
 	{
-		for (var n = array_length(tile_layers) - 1; n > -1; --n)
+		for (var n = array_length(tilemaps) - 1, k = ds_list_size(solid_objects) - 1; max(n, k) > -1; {--n; --k})
 		{
-			if (collision_point(px, py, tile_layers[n], true, false) != noone)
-			{
-				return true;
-			}
+			var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
+			if (collision_point(px, py, inst, true, false) != noone) return true;
 		}
-		
-		for (n = ds_list_size(solid_objects) - 1; n > -1; --n)
-		{
-			if (collision_point(px, py, solid_objects[| n], true, false) != noone)
-			{
-				return true;
-			}
-		}
-		
 		return false;
 	};
 	
@@ -76,23 +65,23 @@ function player_calc_ground_normal(ox, oy, rot)
 
 /// @function player_detect_entities()
 /// @description Finds any instances intersecting a minimum bounding rectangle centered on the player, executes their reaction, and registers their solidity.
-/// It also resets the array containing the tile layers in which the player can interact with, and removes ones which they can't.
+/// It also refreshes the player's local tilemaps by (de)listing the semisolid layer if applicable.
 function player_detect_entities()
 {
-	// Delist solids
+	// Delist solid zone objects
 	ds_list_clear(solid_objects);
 	
 	// Setup bounding rectangle
 	var x_int = x div 1;
 	var y_int = y div 1;
-	var xrad = x_wall_radius + 1;
-	var yrad = y_tile_reach + y_radius + 1;
+	var xdia = x_wall_radius + 0.5;
+	var ydia = y_tile_reach + y_radius + 0.5;
 	
 	// Detect instances intersecting the rectangle
 	var zone_objects = ds_list_create();
 	var total_objects = (mask_direction mod 180 != 0 ?
-		collision_rectangle_list(x_int - yrad, y_int - xrad, x_int + yrad, y_int + xrad, objZoneObject, true, false, zone_objects, false) :
-		collision_rectangle_list(x_int - xrad, y_int - yrad, x_int + xrad, y_int + yrad, objZoneObject, true, false, zone_objects, false));
+		collision_rectangle_list(x_int - ydia, y_int - xdia, x_int + ydia, y_int + xdia, objZoneObject, true, false, zone_objects, false) :
+		collision_rectangle_list(x_int - xdia, y_int - ydia, x_int + xdia, y_int + ydia, objZoneObject, true, false, zone_objects, false));
 	
 	// Execute the reaction of all instances
 	for (var n = 0; n < total_objects; ++n)
@@ -102,24 +91,23 @@ function player_detect_entities()
 		
 		// Register solid instances; skip the current instance if...
 		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
-		if (inst.semisolid and player_ray_collision(inst)) continue; // Passing through
+		if (inst.semisolid and player_ray_collision(inst, xdia)) continue; // Passing through
 		
 		ds_list_add(solid_objects, inst);
 	}
 	ds_list_destroy(zone_objects);
 	
-	// Refresh tile layers and delist invalid ones
-	tile_layers =
-	[
-		layer_tilemap_get_id("TilesLayer0"),
-		layer_tilemap_get_id("TilesLayer1"),
-		layer_tilemap_get_id("TilesMain"),
-		layer_tilemap_get_id("TilesSemisolid")
-	];
-	
-	array_delete(tile_layers, collision_layer ^ 1, 1);
-	if (player_ray_collision(tile_layers[2]))
+	// Evaluate semisolid tilemap collision
+	var valid = array_contains(tilemaps, semisolid_tilemap);
+	if (not player_ray_collision(semisolid_tilemap, xdia))
 	{
-		array_delete(tile_layers, 2, 1);
+		if (not valid) array_push(tilemaps, semisolid_tilemap);
 	}
+	else if (valid) array_pop(tilemaps);
+	
+	/* AUTHOR NOTE: when using GameMaker's collision functions (excl. `collision_line` and `collision_point`)
+	the shapes must intersect by at least 0.5 pixels for a collision to be registered.
+	In order to correctly detect collision with terrain specifically, and circumvent this threshold,
+	the player's virtual mask is stretched by this amount.
+	Generally speaking, when using the `player_collision` and `player_part_collision` functions, you should not need to follow this. */
 }

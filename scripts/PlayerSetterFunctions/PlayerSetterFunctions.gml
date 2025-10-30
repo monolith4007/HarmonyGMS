@@ -1,12 +1,12 @@
 /// @function player_eject_wall(inst)
-/// @description Moves the sides of the player's virtual mask out of collision with the given solid.
-/// @param {Id.Instance} inst Instance to eject from.
+/// @description Moves the player's virtual mask out of collision with the given wall.
+/// @param {Id.Instance|Id.TileMapElement} inst Instance or tilemap element to eject from.
 /// @returns {Real|Undefined} Sign of the wall from the player, or undefined on failure to reposition.
 function player_eject_wall(inst)
 {
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
-	var inside = (collision_point(x div 1, y div 1, inst, true, false) != noone);
+	var inside = collision_point(x div 1, y div 1, inst, true, false) != noone;
 	
 	for (var ox = 1; ox <= x_wall_radius; ++ox)
 	{
@@ -50,9 +50,9 @@ function player_resolve_angle()
 	var ramp_edge = 0;
 	
 	// Find which of the player's vertical sensors are grounded
-	for (var n = array_length(tile_layers) - 1, k = ds_list_size(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+	for (var n = array_length(tilemaps) - 1, k = ds_list_size(solid_objects) - 1; max(n, k) > -1; {--n; --k})
 	{
-		var inst = [(n > -1 ? tile_layers[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
+		var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
 		
 		// Check directly below
 		if (player_beam_collision(inst, -x_radius, y_radius + 1)) mask_edge |= 1;
@@ -116,9 +116,9 @@ function player_resolve_angle()
 }
 
 /// @function player_ground(inst, [height])
-/// @description Sets the given instance as the terrain the player is standing on. If noone is assigned, the player is rotated to their gravity direction.
-/// @param {Id.Instance} inst Instance to set.
-/// @param {Real} [height] Distance in pixels to align the player's virtual mask with the instance (optional if noone is assigned).
+/// @description Sets the given solid as the terrain the player is standing on. If noone is assigned, the player is rotated to their gravity direction.
+/// @param {Id.Instance|Id.TileMapElement} inst Instance or tilemap element to set.
+/// @param {Real} [height] Distance in pixels to align the player's virtual mask with the solid (optional if noone is assigned).
 function player_ground(inst, height)
 {
 	ground_id = inst;

@@ -51,12 +51,20 @@ gravity_direction = 0;
 local_direction = 0;
 mask_direction = 0;
 
-collision_layer = 0;
+//collision_layer = 0;
 
 cliff_sign = 0;
 
+tilemaps =
+[
+	//layer_tilemap_get_id("TilesLayer0"),
+	//layer_tilemap_get_id("TilesLayer1"),
+	layer_tilemap_get_id("TilesMain")
+];
+//array_delete(tilemaps, collision_layer ^ 1, 1);
+semisolid_tilemap = layer_tilemap_get_id("TilesSemisolid");
+
 solid_objects = ds_list_create();
-tile_layers = [];
 
 // Animations
 animations =

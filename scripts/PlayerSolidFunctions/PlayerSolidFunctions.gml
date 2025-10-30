@@ -3,9 +3,9 @@
 /// @returns {Id.TileMapElement|Id.Instance}
 function player_get_wall()
 {
-	for (var n = array_length(tile_layers) - 1; n > -1; --n)
+	for (var n = array_length(tilemaps) - 1; n > -1; --n)
 	{
-		var inst = tile_layers[n];
+		var inst = tilemaps[n];
 		if (player_ray_collision(inst)) return inst;
 	}
 	
@@ -26,9 +26,9 @@ function player_get_floor(height)
 {
 	for (var oy = 0; oy <= height; ++oy)
 	{
-		for (var n = array_length(tile_layers) - 1; n > -1; --n)
+		for (var n = array_length(tilemaps) - 1; n > -1; --n)
 		{
-			var inst = tile_layers[n];
+			var inst = tilemaps[n];
 			if (player_ray_collision(inst, x_radius, oy)) return [inst, oy];
 		}
 		
@@ -50,10 +50,10 @@ function player_get_ceiling(height)
 {
 	for (var oy = 0; oy <= height; ++oy)
 	{
-		for (var n = array_length(tile_layers) - 1; n > -1; --n)
+		for (var n = array_length(tilemaps) - 1; n > -1; --n)
 		{
-			var inst = tile_layers[n];
-			if (player_ray_collision(inst, x_radius, -oy) and n != 2) // n == 2 -> semisolid layer
+			var inst = tilemaps[n];
+			if (player_ray_collision(inst, x_radius, -oy) and inst != semisolid_tilemap)
 			{
 				return [inst, oy];
 			}
