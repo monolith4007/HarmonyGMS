@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sprSonicCrouch",
   "bboxMode":0,
   "bbox_bottom":32,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b675a79c-4c65-42bd-8e62-240f961a0e0c","name":"b675a79c-4c65-42bd-8e62-240f961a0e0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"e1d4aa8b-5a0d-4529-a789-c4f471ace549","name":"e1d4aa8b-5a0d-4529-a789-c4f471ace549","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"b675a79c-4c65-42bd-8e62-240f961a0e0c","name":"b675a79c-4c65-42bd-8e62-240f961a0e0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"e1d4aa8b-5a0d-4529-a789-c4f471ace549","name":"e1d4aa8b-5a0d-4529-a789-c4f471ace549","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
