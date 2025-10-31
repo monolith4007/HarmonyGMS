@@ -26,12 +26,17 @@ function player_find_floor(radius)
 {
 	for (var oy = 0; oy <= radius; ++oy)
 	{
-		for (var n = array_length(tilemaps) - 1, k = array_length(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+		for (var n = array_length(tilemaps) - 1; n > -1; --n)
 		{
-			var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[k] : noone)];
-			if (player_ray_collision(inst, x_radius, oy)) return oy;
+			if (player_ray_collision(tilemaps[n], x_radius, oy)) return oy;
+		}
+		
+		for (n = array_length(solid_objects) - 1; n > -1; --n)
+		{
+			if (player_ray_collision(solid_objects[n], x_radius, oy)) return oy;
 		}
 	}
+	
 	return undefined;
 }
 

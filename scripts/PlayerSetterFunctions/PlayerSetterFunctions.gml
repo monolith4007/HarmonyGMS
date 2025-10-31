@@ -6,7 +6,7 @@ function player_eject_wall(inst)
 {
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
-	var inside = collision_point(x div 1, y div 1, inst, true, false) != noone;
+	var inside = (collision_point(x div 1, y div 1, inst, true, false) != noone);
 	
 	for (var ox = 1; ox <= x_wall_radius; ++ox)
 	{
@@ -116,11 +116,12 @@ function player_resolve_angle()
 }
 
 /// @function player_ground(height)
-/// @description Records the player as being on the ground, and repositions them by the given height. If undefined is assigned, the player is rotated to their gravity direction..
-/// @param {Real|Undefined} height Distance in pixels to reposition the player.
+/// @description Records the player as being on the ground, and repositions them by the given height if undefined is not passed.
+/// Otherwise, the player falls and is rotated towards their gravity direction.
+/// @param {Real|Undefined} height Amount in pixels to reposition the player, if applicable.
 function player_ground(height)
 {
-	on_ground = height != undefined;
+	on_ground = (height != undefined);
 	if (not on_ground)
 	{
 		direction = gravity_direction;
