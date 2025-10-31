@@ -34,9 +34,9 @@ function player_is_standing(phase)
 			var edge = 0;
 			var height = y_radius + y_tile_reach;
 			
-			for (var n = array_length(tilemaps) - 1, k = ds_list_size(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+			for (var n = array_length(tilemaps) - 1, k = array_length(solid_objects) - 1; max(n, k) > -1; {--n; --k})
 			{
-				var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
+				var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[k] : noone)];
 				
 				// Check sensors
 				if (player_beam_collision(inst, 0, height)) break; // Center collision means not on a cliff

@@ -50,9 +50,9 @@ function player_resolve_angle()
 	var ramp_edge = 0;
 	
 	// Find which of the player's vertical sensors are grounded
-	for (var n = array_length(tilemaps) - 1, k = ds_list_size(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+	for (var n = array_length(tilemaps) - 1, k = array_length(solid_objects) - 1; max(n, k) > -1; {--n; --k})
 	{
-		var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[| k] : noone)];
+		var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[k] : noone)];
 		
 		// Check directly below
 		if (player_beam_collision(inst, -x_radius, y_radius + 1)) mask_edge |= 1;
@@ -115,15 +115,12 @@ function player_resolve_angle()
 	}
 }
 
-/// @function player_ground(inst, [height])
-/// @description Sets the given solid as the terrain the player is standing on. If noone is assigned, the player is rotated to their gravity direction.
-/// @param {Id.Instance|Id.TileMapElement} inst Instance or tilemap element to set.
-/// @param {Real} [height] Distance in pixels to align the player's virtual mask with the solid (optional if noone is assigned).
-function player_ground(inst, height)
+/// @function player_ground(height)
+/// @description Records the player as being on the ground, and repositions them by the given height. If undefined is assigned, the player is rotated to their gravity direction..
+/// @param {Real|Undefined} height Distance in pixels to reposition the player.
+function player_ground(height)
 {
-	ground_id = inst;
-	on_ground = (inst != noone);
-	
+	on_ground = height != undefined;
 	if (not on_ground)
 	{
 		direction = gravity_direction;

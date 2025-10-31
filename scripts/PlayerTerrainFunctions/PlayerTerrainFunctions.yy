@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"PlayerSolidFunctions",
+  "%Name":"PlayerTerrainFunctions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"PlayerSolidFunctions",
+  "name":"PlayerTerrainFunctions",
   "parent":{
     "name":"Physics",
     "path":"folders/Scripts/Player/Physics.yy",

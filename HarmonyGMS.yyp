@@ -76,7 +76,7 @@
     {"id":{"name":"PlayerGroundedStates","path":"scripts/PlayerGroundedStates/PlayerGroundedStates.yy",},},
     {"id":{"name":"PlayerMovementFunctions","path":"scripts/PlayerMovementFunctions/PlayerMovementFunctions.yy",},},
     {"id":{"name":"PlayerSetterFunctions","path":"scripts/PlayerSetterFunctions/PlayerSetterFunctions.yy",},},
-    {"id":{"name":"PlayerSolidFunctions","path":"scripts/PlayerSolidFunctions/PlayerSolidFunctions.yy",},},
+    {"id":{"name":"PlayerTerrainFunctions","path":"scripts/PlayerTerrainFunctions/PlayerTerrainFunctions.yy",},},
     {"id":{"name":"UtilityFunctions","path":"scripts/UtilityFunctions/UtilityFunctions.yy",},},
     {"id":{"name":"bgmLife","path":"sounds/bgmLife/bgmLife.yy",},},
     {"id":{"name":"bgmMadGear","path":"sounds/bgmMadGear/bgmMadGear.yy",},},
