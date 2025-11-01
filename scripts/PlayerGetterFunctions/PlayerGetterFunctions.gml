@@ -82,7 +82,7 @@ function player_detect_entities()
 	var xdia = x_wall_radius + 0.5;
 	var ydia = y_tile_reach + y_radius + 0.5;
 	
-	/* AUTHOR NOTE: the size of the bounding rectangle must be coordinates with the distances used for collision checking.
+	/* AUTHOR NOTE: the size of the bounding rectangle must be coordinated with the distances used for collision checking.
 	Wall collisions check for a distance of `x_wall_radius`, so this is the rectangle's width.
 	Floor collisions check for a distance of `y_tile_reach + y_radius`, so this is the rectangle's height.
 	The additional 0.5 pixels is there to address a quirk with GameMaker's collision functions where, with the exception of
