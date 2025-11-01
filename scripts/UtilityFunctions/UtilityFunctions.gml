@@ -4,7 +4,7 @@
 /// @returns {Real}
 function angle_wrap(ang)
 {
-	return ((ang mod 360) + 360) mod 360;
+	return (ang mod 360 + 360) mod 360;
 }
 
 /// @function instance_in_view([obj], [padding])

@@ -11,7 +11,7 @@ function player_calc_ground_normal(ox, oy, rot)
 	/// @param {Real} px x-coordinate of the point.
 	/// @param {Real} py y-coordinate of the point.
 	/// @returns {Bool}
-	var point_in_solid = function (px, py)
+	static point_in_solid = function (px, py)
 	{
 		for (var n = array_length(tilemaps) - 1; n > -1; --n)
 		{
@@ -27,8 +27,8 @@ function player_calc_ground_normal(ox, oy, rot)
 	};
 	
 	// Setup angle sensors
-	var sensor_x = [ox, ox];
-	var sensor_y = [oy, oy];
+	var sensor_x = array_create(2, ox);
+	var sensor_y = array_create(2, oy);
 	var sine = dsin(rot);
 	var cosine = dcos(rot);
 	

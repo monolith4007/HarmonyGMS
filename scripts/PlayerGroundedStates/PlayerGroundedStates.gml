@@ -34,9 +34,10 @@ function player_is_standing(phase)
 			var edge = 0;
 			var height = y_radius + y_tile_reach;
 			
-			for (var n = array_length(tilemaps) - 1, k = array_length(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+			var total_solids = array_concat(tilemaps, solid_objects);
+			for (var n = array_length(total_solids) - 1; n > -1; --n)
 			{
-				var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[k] : noone)];
+				var inst = total_solids[n];
 				
 				// Check sensors
 				if (player_beam_collision(inst, 0, height)) break; // Center collision means not on a cliff
@@ -45,7 +46,7 @@ function player_is_standing(phase)
 			}
 			
 			// Check if only one sensor is grounded
-			if (max(n, k) == -1 and edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
+			if (n == -1 and edge != 3) cliff_sign = (edge == 1 ? 1 : -1);
 			
 			// Animate
 			player_animate(cliff_sign != 0 ? "teeter" : "idle");
@@ -178,23 +179,22 @@ function player_is_running(phase)
 			// Stand
 			if (x_speed == 0 and input_sign == 0) return player_perform(player_is_standing);
 			
-			// Animate
-			if (can_brake and (animation != "brake" or timeline_position < timeline_max_moment(timeline_index)))
+			// Brake
+			if (can_brake and mask_direction == gravity_direction and abs(x_speed) >= 4 and animation != "brake")
 			{
-				if (animation != "brake")
+				player_animate("brake");
+				timeline_speed = 1;
+				image_angle = gravity_direction;
+				image_xscale = -input_sign;
+				sound_play(sfxBrake);
+			}
+			
+			// Animate
+			if (can_brake and animation == "brake" and timeline_position < timeline_max_moment(timeline_index))
+			{
+				if (timeline_position mod 4 == 0)
 				{
-					if (mask_direction == gravity_direction and abs(x_speed) >= 4)
-					{
-						player_animate("brake");
-						timeline_speed = 1;
-						image_angle = gravity_direction;
-						image_xscale = -input_sign;
-						sound_play(sfxBrake);
-					}
-				}
-				else if (ctrlWindow.image_index mod 4 == 0)
-				{
-					// Create brake dust
+					// Kick up dust
 					var offset = y_radius - 6;
 					var ox = x + dsin(direction) * offset;
 					var oy = y + dcos(direction) * offset;

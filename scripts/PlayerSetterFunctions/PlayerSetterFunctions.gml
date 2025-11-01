@@ -50,9 +50,10 @@ function player_resolve_angle()
 	var ramp_edge = 0;
 	
 	// Find which of the player's vertical sensors are grounded
-	for (var n = array_length(tilemaps) - 1, k = array_length(solid_objects) - 1; max(n, k) > -1; {--n; --k})
+	var total_solids = array_concat(tilemaps, solid_objects);
+	for (var n = array_length(total_solids) - 1; n > -1; --n)
 	{
-		var inst = [(n > -1 ? tilemaps[n] : noone), (k > -1 ? solid_objects[k] : noone)];
+		var inst = total_solids[n];
 		
 		// Check directly below
 		if (player_beam_collision(inst, -x_radius, y_radius + 1)) mask_edge |= 1;
