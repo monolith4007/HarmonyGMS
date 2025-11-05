@@ -59,13 +59,13 @@ function player_move_in_air()
 	var total_steps = 1 + abs(x_speed) div x_radius + abs(y_speed) div y_radius;
 	var x_step = x_speed / total_steps;
 	var y_step = y_speed / total_steps;
+	var sine = dsin(direction);
+	var cosine = dcos(direction);
 	
 	// Loop over the number of steps
 	repeat (total_steps)
 	{
 		// Move by a single step
-		var sine = dsin(direction);
-		var cosine = dcos(direction);
 		x += cosine * x_step + sine * y_step;
 		y += -sine * x_step + cosine * y_step;
 		player_in_bounds();
