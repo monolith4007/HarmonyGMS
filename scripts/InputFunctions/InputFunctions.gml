@@ -4,10 +4,10 @@
 /// @returns {Bool}
 function input_check(command)
 {
+	command = 1 << command;
 	with (ctrlInput)
 	{
-		var bit = 1 << command;
-		return (state & bit) != 0;
+		return (state & command) != 0;
 	}
 }
 
@@ -17,10 +17,10 @@ function input_check(command)
 /// @returns {Bool}
 function input_check_pressed(command)
 {
+	command = 1 << command;
 	with (ctrlInput)
 	{
-		var bit = 1 << command;
-		return (state & bit) != 0 and (previous_state & bit) == 0;
+		return (state & command) != 0 and (previous_state & command) == 0;
 	}
 }
 
@@ -30,9 +30,9 @@ function input_check_pressed(command)
 /// @returns {Bool}
 function input_check_released(command)
 {
+	command = 1 << command;
 	with (ctrlInput)
 	{
-		var bit = 1 << command;
-		return (previous_state & bit) != 0 and (state & bit) == 0;
+		return (previous_state & command) != 0 and (state & command) == 0;
 	}
 }

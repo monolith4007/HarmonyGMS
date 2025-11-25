@@ -1,11 +1,6 @@
 /// @description Initialize
 image_speed = 0;
 
-enum PHASE
-{
-	ENTER, STEP, EXIT
-}
-
 // State machine
 state = player_is_ready;
 state_changed = false;
@@ -49,18 +44,15 @@ gravity_direction = 0;
 local_direction = 0;
 mask_direction = 0;
 
-//collision_layer = 0;
-
 cliff_sign = 0;
 
-tilemaps =
-[
-	//layer_tilemap_get_id("TilesLayer0"),
-	//layer_tilemap_get_id("TilesLayer1"),
-	layer_tilemap_get_id("TilesMain")
-];
-//array_delete(tilemaps, collision_layer ^ 1, 1);
+tilemaps = [layer_tilemap_get_id("TilesMain")];
 semisolid_tilemap = layer_tilemap_get_id("TilesSemisolid");
+if (layer_exists("TilesLayer0"))
+{
+	array_push(tilemaps, layer_tilemap_get_id("TilesLayer0"));
+	collision_layer = 0;
+}
 
 solid_objects = [];
 

@@ -1,13 +1,23 @@
-// Macros
+// Constants
 #macro CAMERA_ID view_camera[0]
 #macro CAMERA_PADDING 64
 #macro CAMERA_WIDTH 400
 #macro CAMERA_HEIGHT 224
 
+enum INPUT
+{
+	UP, DOWN, LEFT, RIGHT, ACTION
+}
+
+enum PHASE
+{
+	ENTER, STEP, EXIT
+}
+
 // Misc.
 surface_depth_disable(true);
-randomize();
 audio_channel_num(16);
+randomize();
 
 // Volumes
 volume_sound = 1;

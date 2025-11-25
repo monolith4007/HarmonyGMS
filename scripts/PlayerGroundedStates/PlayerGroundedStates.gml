@@ -40,9 +40,9 @@ function player_is_standing(phase)
 				var inst = total_solids[n];
 				
 				// Check sensors
-				if (player_beam_collision(inst, 0, height)) break; // Center collision means not on a cliff
-				if (player_beam_collision(inst, -x_radius, height)) edge |= 1; // Left
-				if (player_beam_collision(inst, x_radius, height)) edge |= 2; // Right
+				if (player_ray_collision(inst, 0, height)) break; // Center collision means not on a cliff
+				if (player_ray_collision(inst, -x_radius, height)) edge |= 1; // Left
+				if (player_ray_collision(inst, x_radius, height)) edge |= 2; // Right
 			}
 			
 			// Check if only one sensor is grounded
@@ -170,7 +170,7 @@ function player_is_running(phase)
 			player_resist_slope(0.125);
 			
 			// Roll
-			if (input_check(INPUT.DOWN) and input_sign == 0 and abs(x_speed) >= 1.03125)
+			if (input_sign == 0 and abs(x_speed) >= 1.03125 and input_check(INPUT.DOWN))
 			{
 				sound_play(sfxRoll);
 				return player_perform(player_is_rolling);

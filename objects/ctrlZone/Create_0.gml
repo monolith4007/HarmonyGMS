@@ -21,4 +21,4 @@ switch (room)
 }
 
 // Create UI elements
-instance_create_layer(0, 0, "Display", objHUD);
+instance_create_layer(0, 0, "Display", objHUD, { image_speed: 0 });

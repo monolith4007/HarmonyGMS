@@ -1,6 +1,6 @@
 /// @description Render
 var time = ctrlZone.stage_time;
-var flash = image_index mod 16 < 8;
+var flash = time mod 16 < 8;
 
 // Lives
 draw_sprite(sprLifeIcon, 0, 16, CAMERA_HEIGHT - 24);

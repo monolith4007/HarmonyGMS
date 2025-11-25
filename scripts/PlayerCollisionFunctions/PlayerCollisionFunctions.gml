@@ -32,13 +32,13 @@ function player_part_collision(obj, yrad)
 	return collision_rectangle(x1, y1, x2, y2, obj, true, false) != noone;
 }
 
-/// @function player_ray_collision(obj, [xdia], [yoff])
+/// @function player_beam_collision(obj, [xdia], [yoff])
 /// @description Checks if the given entity's mask intersects a line from the player's position.
 /// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
 /// @param {Real} [xdia] Distance in pixels to extend the line horizontally on both ends (optional, default is the player's wall radius).
 /// @param {Real} [yoff] Distance in pixels to offset the line vertically (optional, default is 0).
 /// @returns {Bool}
-function player_ray_collision(obj, xdia = x_wall_radius, yoff = 0)
+function player_beam_collision(obj, xdia = x_wall_radius, yoff = 0)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
@@ -53,13 +53,13 @@ function player_ray_collision(obj, xdia = x_wall_radius, yoff = 0)
 	return collision_line(x1, y1, x2, y2, obj, true, false) != noone;
 }
 
-/// @function player_beam_collision(obj, xoff, yrad)
+/// @function player_ray_collision(obj, xoff, yrad)
 /// @description Checks if the given entity's mask intersects a line from the player's position.
 /// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
 /// @param {Real} xoff Distance in pixels to offset the line horizontally.
 /// @param {Real} yrad Distance in pixels to extend the line downward.
 /// @returns {Bool}
-function player_beam_collision(obj, xoff, yrad)
+function player_ray_collision(obj, xoff, yrad)
 {
 	var x_int = x div 1;
 	var y_int = y div 1;
