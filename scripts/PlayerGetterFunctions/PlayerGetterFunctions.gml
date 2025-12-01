@@ -87,11 +87,11 @@ function player_detect_entities()
 		{
 			var inst = zone_objects[| n];
 			script_execute(inst.reaction, inst);
-		
+			
 			// Register solid instances; skip the current instance if...
 			if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
 			if (inst.semisolid and player_beam_collision(inst)) continue; // Passing through
-		
+			
 			array_push(solid_entities, inst);
 		}
 	}
