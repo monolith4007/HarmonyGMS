@@ -11,6 +11,7 @@ jump_action = false;
 spindash_charge = 0;
 
 // Timers
+rotation_lock_time = 0;
 control_lock_time = 0;
 superspeed_time = 0;
 camera_look_time = 0;
@@ -86,7 +87,6 @@ player_perform = function (action)
 /// @description Rotates the player's virtual mask, if applicable.
 player_rotate_mask = function ()
 {
-	static rotation_lock_time = 0;
 	if (rotation_lock_time > 0) then --rotation_lock_time;
 	
 	var new_rotation = (round(direction / 90) mod 4) * 90;
