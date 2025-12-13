@@ -32,17 +32,10 @@ function player_is_standing(phase)
 			// Check if standing on a cliff
 			cliff_sign = 0;
 			var height = y_radius + y_tile_reach;
-			
 			if (not player_ray_collision(solid_entities, 0, height))
 			{
-				if (player_ray_collision(solid_entities, -x_radius, height))
-				{
-					cliff_sign = 1;
-				}
-				else if (player_ray_collision(solid_entities, x_radius, height))
-				{
-					cliff_sign = -1;
-				}
+				cliff_sign = player_ray_collision(solid_entities, -x_radius, height) -
+					player_ray_collision(solid_entities, x_radius, height);
 			}
 			
 			// Animate

@@ -47,23 +47,16 @@ function player_eject_wall(inst)
 /// @description Determines the player's angle values.
 function player_resolve_angle()
 {
-	var mask_edge = 0;
-	var ramp_edge = 0;
+	// Check for ground collision using all vertical sensors
+	var edge = 0;
+	if (player_ray_collision(solid_entities, -x_radius, y_radius + 1)) edge |= 1;
+	if (player_ray_collision(solid_entities, x_radius, y_radius + 1)) edge |= 2;
+	if (player_ray_collision(solid_entities, 0, y_radius + 1)) edge |= 4;
 	
-	// Check for the ground directly below the player
-	if (player_ray_collision(solid_entities, -x_radius, y_radius + 1)) mask_edge |= 1;
-	if (player_ray_collision(solid_entities, x_radius, y_radius + 1)) mask_edge |= 2;
-	if (player_ray_collision(solid_entities, 0, y_radius + 1)) mask_edge |= 4;
+	// Abort on no collision
+	if (edge == 0) exit;
 	
-	// Check at ramp edges
-	if (not landed)
-	{
-		if (player_ray_collision(solid_entities, -x_radius, y_radius + y_tile_reach)) ramp_edge |= 1;
-		if (player_ray_collision(solid_entities, x_radius, y_radius + y_tile_reach)) ramp_edge |= 2;
-		if (player_ray_collision(solid_entities, 0, y_radius + y_tile_reach)) ramp_edge |= 4;
-	}
-	
-	// Setup offset point from which the normal should be calculated
+	// Define offset point from which the ground normal should be calculated
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
 	var ox = x div 1 + sine * y_radius;
@@ -71,13 +64,15 @@ function player_resolve_angle()
 	
 	// Check for steep angle ranges at ramp edges
 	ground_snap = true;
-	if (ramp_edge == 1 or ramp_edge == 2)
+	if (not (landed or player_ray_collision(solid_entities, 0, y_radius + y_tile_reach)) and
+		(player_ray_collision(solid_entities, -x_radius, y_radius + y_tile_reach) xor
+		player_ray_collision(solid_entities, x_radius, y_radius + y_tile_reach)))
 	{
 		// Calculate...
-		var perp_dir = player_calc_tile_normal(ox + sine, oy + cosine, mask_direction + (ramp_edge == 2 ? 90 : 270)); // The normal of the ramp edge
+		var perp_dir = player_calc_tile_normal(ox + sine, oy + cosine, mask_direction + (edge == 2 ? 90 : 270)); // The normal of the ramp edge
 		var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
 		
-		// If the difference is too steep, do not snap down to the ground, and abort angle calculation
+		// If the difference is too steep, do not snap down to the ground, and abort
 		if (diff > 45 and diff < 90)
 		{
 			ground_snap = false;
@@ -86,31 +81,26 @@ function player_resolve_angle()
 	}
 	
 	// Calculate the ground normal
-	if (mask_edge != 0)
+	var new_dir = mask_direction;
+	if ((edge & (edge - 1)) == 0) // Check if only one sensor is grounded (power of 2 calculation)
 	{
-		var new_dir = mask_direction;
-		
-		// Check if only one of the player's sensors is grounded (power of 2 check)
-		if ((mask_edge & (mask_edge - 1)) == 0)
+		// Reposition offset point, if applicable
+		if (edge == 1)
 		{
-			// Reposition offset point to the left or right side of the player's virtual mask, if applicable
-			if (mask_edge == 1)
-			{
-				ox -= cosine * x_radius;
-				oy += sine * x_radius;
-			}
-			else if (mask_edge == 2)
-			{
-				ox += cosine * x_radius;
-				oy -= sine * x_radius;
-			}
-			new_dir = player_calc_tile_normal(ox, oy, mask_direction);
+			ox -= cosine * x_radius;
+			oy += sine * x_radius;
 		}
-		
-		// Set new angle values
-		direction = new_dir;
-		local_direction = angle_wrap(direction - gravity_direction);
+		else if (edge == 2)
+		{
+			ox += cosine * x_radius;
+			oy -= sine * x_radius;
+		}
+		new_dir = player_calc_tile_normal(ox, oy, mask_direction);
 	}
+	
+	// Set new angle values
+	direction = new_dir;
+	local_direction = angle_wrap(direction - gravity_direction);
 }
 
 /// @function player_ground(height)
