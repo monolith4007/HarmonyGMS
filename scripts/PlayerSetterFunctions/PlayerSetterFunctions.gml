@@ -80,8 +80,7 @@ function player_resolve_angle()
 		}
 	}
 	
-	// Calculate the ground normal
-	var new_dir = mask_direction;
+	// Calculate the ground normal and set new angle values
 	if ((edge & (edge - 1)) == 0) // Check if only one sensor is grounded (power of 2 calculation)
 	{
 		// Reposition offset point, if applicable
@@ -95,11 +94,9 @@ function player_resolve_angle()
 			ox += cosine * x_radius;
 			oy -= sine * x_radius;
 		}
-		new_dir = player_calc_tile_normal(ox, oy, mask_direction);
+		direction = player_calc_tile_normal(ox, oy, mask_direction);
 	}
-	
-	// Set new angle values
-	direction = new_dir;
+	else direction = mask_direction;
 	local_direction = angle_wrap(direction - gravity_direction);
 }
 
