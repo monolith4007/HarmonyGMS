@@ -40,7 +40,8 @@ function player_move_on_ground()
 		// Handle floor collision
 		if (on_ground)
 		{
-			tile_data = player_find_floor(y_radius + (ground_snap ? y_tile_reach : 1));
+			//tile_data = player_find_floor(y_radius + (ground_snap ? y_tile_reach : 1));
+			tile_data = player_find_floor(y_radius + min(2 + abs(x_speed) div 1, y_tile_reach));
 			if (tile_data != undefined)
 			{
 				player_ground(tile_data);

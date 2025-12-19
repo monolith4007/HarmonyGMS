@@ -38,7 +38,7 @@ y_tile_reach = 16;
 
 landed = false;
 on_ground = true;
-ground_snap = true;
+//ground_snap = true;
 
 direction = 0;
 gravity_direction = 0;

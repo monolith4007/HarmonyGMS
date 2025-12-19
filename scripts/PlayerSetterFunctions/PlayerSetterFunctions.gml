@@ -63,7 +63,7 @@ function player_resolve_angle()
 	var oy = y div 1 + cosine * y_radius;
 	
 	// Check for steep angle ranges at ramp edges
-	ground_snap = true;
+	/*ground_snap = true;
 	if (not (landed or player_ray_collision(solid_entities, 0, y_radius + y_tile_reach)) and
 		(player_ray_collision(solid_entities, -x_radius, y_radius + y_tile_reach) xor
 		player_ray_collision(solid_entities, x_radius, y_radius + y_tile_reach)))
@@ -78,7 +78,7 @@ function player_resolve_angle()
 			ground_snap = false;
 			exit;
 		}
-	}
+	}*/
 	
 	// Calculate the ground normal and set new angle values
 	if ((edge & (edge - 1)) == 0) // Check if only one sensor is grounded (power of 2 calculation)
