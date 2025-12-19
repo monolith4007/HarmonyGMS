@@ -133,7 +133,6 @@ function player_refresh_physics()
 	speed_cap = 6;
 	acceleration = 0.046875;
 	deceleration = 0.5;
-	friction = 0.046875;
 	air_acceleration = 0.09375;
 	roll_deceleration = 0.125;
 	roll_friction = 0.0234375;
@@ -150,7 +149,6 @@ function player_refresh_physics()
 	{
 		speed_cap *= 2;
 		acceleration *= 2;
-		friction *= 2;
 		air_acceleration *= 2;
 		roll_friction *= 2;
 	}
@@ -162,19 +160,19 @@ function player_refresh_physics()
 function player_in_bounds()
 {
 	// Check if already inside (early out)
-	if (gravity_direction mod 180 != 0)
-	{
-		var x1 = x - y_radius;
-		var y1 = y - x_radius;
-		var x2 = x + y_radius;
-		var y2 = y + x_radius;
-	}
-	else
+	if (gravity_direction mod 180 == 0)
 	{
 		var x1 = x - x_radius;
 		var y1 = y - y_radius;
 		var x2 = x + x_radius;
 		var y2 = y + y_radius;
+	}
+	else
+	{
+		var x1 = x - y_radius;
+		var y1 = y - x_radius;
+		var x2 = x + y_radius;
+		var y2 = y + x_radius;
 	}
 	
 	with (objCamera)
@@ -191,47 +189,47 @@ function player_in_bounds()
 	}
 	
 	// Reposition
-	if (gravity_direction mod 180 != 0)
+	if (gravity_direction mod 180 == 0)
 	{
-		if (y1 < top)
+		if (x1 < left)
 		{
-			y = top + x_radius;
+			x = left + x_radius;
 			x_speed = 0;
 		}
-		else if (y2 > bottom)
+		else if (x2 > right)
 		{
-			y = bottom - x_radius;
+			x = right - x_radius;
 			x_speed = 0;
 		}
-		else if (x1 > right and gravity_direction == 90)
+		else if (y1 > bottom and gravity_direction == 0)
 		{
-			x = right + y_radius;
+			y = bottom + y_radius;
 			return false;
 		}
-		else if (x2 < left and gravity_direction == 270)
+		else if (y2 < top and gravity_direction == 180)
 		{
-			x = left - y_radius;
+			y = top - y_radius;
 			return false;
 		}
 	}
-	else if (x1 < left)
+	else if (y1 < top)
 	{
-		x = left + x_radius;
+		y = top + x_radius;
 		x_speed = 0;
 	}
-	else if (x2 > right)
+	else if (y2 > bottom)
 	{
-		x = right - x_radius;
+		y = bottom - x_radius;
 		x_speed = 0;
 	}
-	else if (y1 > bottom and gravity_direction == 0)
+	else if (x1 > right and gravity_direction == 90)
 	{
-		y = bottom + y_radius;
+		x = right + y_radius;
 		return false;
 	}
-	else if (y2 < top and gravity_direction == 180)
+	else if (x2 < left and gravity_direction == 270)
 	{
-		y = top - y_radius;
+		x = left - y_radius;
 		return false;
 	}
 	

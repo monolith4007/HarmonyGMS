@@ -7,9 +7,9 @@ function player_collision(obj)
 	var x_int = x div 1;
 	var y_int = y div 1;
 	
-	return (mask_direction mod 180 != 0 ?
-		collision_rectangle(x_int - y_radius, y_int - x_radius, x_int + y_radius, y_int + x_radius, obj, true, false) != noone :
-		collision_rectangle(x_int - x_radius, y_int - y_radius, x_int + x_radius, y_int + y_radius, obj, true, false) != noone);
+	return (mask_direction mod 180 == 0 ?
+		collision_rectangle(x_int - x_radius, y_int - y_radius, x_int + x_radius, y_int + y_radius, obj, true, false) != noone :
+		collision_rectangle(x_int - y_radius, y_int - x_radius, x_int + y_radius, y_int + x_radius, obj, true, false) != noone);
 }
 
 /// @function player_part_collision(obj, ylen)

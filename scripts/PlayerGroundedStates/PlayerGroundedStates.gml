@@ -132,7 +132,9 @@ function player_is_running(phase)
 				else
 				{
 					// Friction
-					x_speed -= min(abs(x_speed), friction) * sign(x_speed);
+					x_speed -= min(abs(x_speed), acceleration) * sign(x_speed);
+					
+					/* AUTHOR NOTE: the values for friction and acceleration are the same in the 16-bit Genesis games. */
 				}
 			}
 			

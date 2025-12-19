@@ -53,6 +53,7 @@ if (layer_exists("TilesLayer0"))
 	array_push(solid_entities, layer_tilemap_get_id("TilesLayer0"));
 	collision_layer = 0;
 }
+tilemap_count = array_length(solid_entities);
 semisolid_tilemap = layer_tilemap_get_id("TilesSemisolid");
 
 // Animations

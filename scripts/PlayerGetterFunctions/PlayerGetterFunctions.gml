@@ -12,17 +12,17 @@ function player_calc_tile_normal(ox, oy, rot)
 	var sine = dsin(rot);
 	var cosine = dcos(rot);
 	
-	if (rot mod 180 != 0)
-	{
-		var right = (rot == 90);
-		sensor_y[right] = oy div 16 * 16;
-		sensor_y[not right] = sensor_y[right] + 15;
-	}
-	else
+	if (rot mod 180 == 0)
 	{
 		var up = (rot == 180);
 		sensor_x[up] = ox div 16 * 16;
 		sensor_x[not up] = sensor_x[up] + 15;
+	}
+	else
+	{
+		var right = (rot == 90);
+		sensor_y[right] = oy div 16 * 16;
+		sensor_y[not right] = sensor_y[right] + 15;
 	}
 	
 	// Extend / regress angle sensors
@@ -54,8 +54,7 @@ function player_calc_tile_normal(ox, oy, rot)
 function player_detect_entities()
 {
 	// Delist solid zone objects
-	static starting_terrain_count = array_length(solid_entities);
-	array_resize(solid_entities, starting_terrain_count);
+	array_resize(solid_entities, tilemap_count);
 	
 	// Evaluate semisolid tilemap collision
 	if (semisolid_tilemap != -1)
@@ -75,10 +74,12 @@ function player_detect_entities()
 	var yrad = y_radius + y_tile_reach + 0.5;
 	
 	// Detect instances intersecting the rectangle
-	var zone_objects = ds_list_create();
-	var total_objects = (mask_direction mod 180 != 0 ?
-		collision_rectangle_list(x_int - yrad, y_int - xrad, x_int + yrad, y_int + xrad, objZoneObject, true, false, zone_objects, false) :
-		collision_rectangle_list(x_int - xrad, y_int - yrad, x_int + xrad, y_int + yrad, objZoneObject, true, false, zone_objects, false));
+	static zone_objects = ds_list_create();
+	ds_list_clear(zone_objects);
+	
+	var total_objects = (mask_direction mod 180 == 0 ?
+		collision_rectangle_list(x_int - xrad, y_int - yrad, x_int + xrad, y_int + yrad, objZoneObject, true, false, zone_objects, false) :
+		collision_rectangle_list(x_int - yrad, y_int - xrad, x_int + yrad, y_int + xrad, objZoneObject, true, false, zone_objects, false));
 	
 	// Execute the reaction of all instances
 	if (total_objects > 0)
@@ -95,7 +96,6 @@ function player_detect_entities()
 			array_push(solid_entities, inst);
 		}
 	}
-	ds_list_destroy(zone_objects);
 	
 	/* AUTHOR NOTE:
 	(1) There is a limitation with the semisolid tilemap detection where, if the player passes through a semisolid tilemap whilst standing on one,
