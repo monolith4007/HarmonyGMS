@@ -6,9 +6,9 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
+    {"name":"inst_582722C2","path":"rooms/rmTest/rmTest.yy",},
     {"name":"inst_20C5CA6E","path":"rooms/rmTest/rmTest.yy",},
     {"name":"inst_5E34EFB8","path":"rooms/rmTest/rmTest.yy",},
-    {"name":"inst_582722C2","path":"rooms/rmTest/rmTest.yy",},
     {"name":"inst_74EEAF56","path":"rooms/rmTest/rmTest.yy",},
     {"name":"inst_5B147C07","path":"rooms/rmTest/rmTest.yy",},
     {"name":"inst_2B6B751B","path":"rooms/rmTest/rmTest.yy",},
