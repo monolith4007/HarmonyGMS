@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Sonic",
-    "path":"folders/Sprites/Player/Sonic.yy",
+    "path":"folders/Sprites/Zone Objects/Player/Sonic.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
