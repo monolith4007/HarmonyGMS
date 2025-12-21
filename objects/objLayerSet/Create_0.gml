@@ -4,11 +4,8 @@ reaction = function (inst)
 {
 	var index = inst.result;
 	
-	// Abort if not intersecting the ring
-	if (collision_layer == index or collision_point(x div 1, y div 1, inst, false, false) == noone)
-	{
-		exit;
-	}
+	// Abort if not intersecting
+	if (collision_layer == index) exit;
 	
 	// Switch
 	if (index > -1)
@@ -16,9 +13,9 @@ reaction = function (inst)
 		collision_layer = index;
 		solid_entities[1] = ctrlZone.tilemaps[index + 1];
 	}
-	else if (on_ground)
+	else if (on_ground and x_speed != 0)
 	{
-		collision_layer = sign(x - xprevious);
+		collision_layer = x_speed > 0;
 		solid_entities[1] = ctrlZone.tilemaps[collision_layer + 1];
 	}
 };
