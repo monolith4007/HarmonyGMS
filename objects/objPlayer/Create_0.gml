@@ -47,14 +47,14 @@ mask_direction = 0;
 
 cliff_sign = 0;
 
-solid_entities = [layer_tilemap_get_id("TilesMain")];
-if (layer_exists("TilesLayer0"))
+solid_entities = [layer_tilemap_get_id("CollisionMain")];
+if (layer_exists("CollisionPlane0"))
 {
-	array_push(solid_entities, layer_tilemap_get_id("TilesLayer0"));
+	array_push(solid_entities, layer_tilemap_get_id("CollisionPlane0"));
 	collision_layer = 0;
 }
 tilemap_count = array_length(solid_entities);
-semisolid_tilemap = layer_tilemap_get_id("TilesSemisolid");
+semisolid_tilemap = layer_tilemap_get_id("CollisionSemisolid");
 
 // Animations
 animations =
