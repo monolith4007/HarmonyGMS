@@ -59,6 +59,7 @@
     {"id":{"name":"objBlock","path":"objects/objBlock/objBlock.yy",},},
     {"id":{"name":"objCamera","path":"objects/objCamera/objCamera.yy",},},
     {"id":{"name":"objHUD","path":"objects/objHUD/objHUD.yy",},},
+    {"id":{"name":"objLayerSet","path":"objects/objLayerSet/objLayerSet.yy",},},
     {"id":{"name":"objPlayer","path":"objects/objPlayer/objPlayer.yy",},},
     {"id":{"name":"objQuarterEllipse","path":"objects/objQuarterEllipse/objQuarterEllipse.yy",},},
     {"id":{"name":"objQuarterPipe","path":"objects/objQuarterPipe/objQuarterPipe.yy",},},
