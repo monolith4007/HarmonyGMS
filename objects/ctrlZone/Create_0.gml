@@ -20,5 +20,17 @@ switch (room)
 	}
 }
 
+// Setup tilemaps; discard invalid ones
+tilemaps =
+[
+	layer_tilemap_get_id("CollisionMain"),
+	layer_tilemap_get_id("CollisionPlane0"),
+	layer_tilemap_get_id("CollisionPlane1"),
+	layer_tilemap_get_id("CollisionSemisolid")
+];
+
+if (tilemaps[3] == -1) array_pop(tilemaps);
+if (tilemaps[1] == -1) array_delete(tilemaps, 1, 2);
+
 // Create UI elements
 instance_create_layer(0, 0, "Display", objHUD, { image_speed: 0 });
