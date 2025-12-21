@@ -5,7 +5,7 @@ reaction = function (inst)
 	var index = inst.result;
 	
 	// Abort if not intersecting
-	if (collision_layer == index) exit;
+	if (collision_layer == index or not player_collision(inst)) exit;
 	
 	// Switch
 	if (index > -1)
