@@ -60,7 +60,7 @@ semisolid_tilemap = ((tilemap_count & 1) == 0 ? array_last(solid_entities) : -1)
 if (tilemap_count >= 3)
 {
 	array_delete(solid_entities, 2, 1);
-	tilemap_count = array_length(solid_entities); // Refresh
+	--tilemap_count;
 }
 
 // Animations
