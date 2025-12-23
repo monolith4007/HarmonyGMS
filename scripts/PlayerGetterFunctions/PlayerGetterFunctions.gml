@@ -60,7 +60,7 @@ function player_detect_entities()
 	if (semisolid_tilemap != -1)
 	{
 		var valid = array_contains(solid_entities, semisolid_tilemap);
-		if (not player_beam_collision(semisolid_tilemap))
+		if (player_beam_collision(semisolid_tilemap) == noone)
 		{
 			if (not valid) array_push(solid_entities, semisolid_tilemap);
 		}
@@ -91,7 +91,7 @@ function player_detect_entities()
 			
 			// Register solid instances; skip the current instance if...
 			if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
-			if (inst.semisolid and player_beam_collision(inst)) continue; // Passing through
+			if (inst.semisolid and player_beam_collision(inst) != noone) continue; // Passing through
 			
 			array_push(solid_entities, inst);
 		}

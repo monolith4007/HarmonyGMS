@@ -32,27 +32,6 @@ function player_part_collision(obj, ylen)
 	return collision_rectangle(x1, y1, x2, y2, obj, true, false) != noone;
 }
 
-/// @function player_beam_collision(obj, [xrad], [yoff])
-/// @description Checks if the given entity's mask intersects a line from the player's position.
-/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
-/// @param {Real} [xrad] Distance in pixels to extend the line horizontally on both ends (optional, default is the player's wall radius).
-/// @param {Real} [yoff] Distance in pixels to offset the line vertically (optional, default is 0).
-/// @returns {Bool}
-function player_beam_collision(obj, xrad = x_wall_radius, yoff = 0)
-{
-	var x_int = x div 1;
-	var y_int = y div 1;
-	var sine = dsin(mask_direction);
-	var cosine = dcos(mask_direction);
-	
-	var x1 = x_int - cosine * xrad + sine * yoff;
-	var y1 = y_int + sine * xrad + cosine * yoff;
-	var x2 = x_int + cosine * xrad + sine * yoff;
-	var y2 = y_int - sine * xrad + cosine * yoff;
-	
-	return collision_line(x1, y1, x2, y2, obj, true, false) != noone;
-}
-
 /// @function player_ray_collision(obj, xoff, ylen)
 /// @description Checks if the given entity's mask intersects a line from the player's position.
 /// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
@@ -72,4 +51,25 @@ function player_ray_collision(obj, xoff, ylen)
 	var y2 = y_int - sine * xoff + cosine * ylen;
 	
 	return collision_line(x1, y1, x2, y2, obj, true, false) != noone;
+}
+
+/// @function player_beam_collision(obj, [xrad], [yoff])
+/// @description Checks if the given entity's mask intersects a line from the player's position.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Real} [xrad] Distance in pixels to extend the line horizontally on both ends (optional, default is the player's wall radius).
+/// @param {Real} [yoff] Distance in pixels to offset the line vertically (optional, default is 0).
+/// @returns {Asset.GMObject|Id.Instance|Id.TileMapElement}
+function player_beam_collision(obj, xrad = x_wall_radius, yoff = 0)
+{
+	var x_int = x div 1;
+	var y_int = y div 1;
+	var sine = dsin(mask_direction);
+	var cosine = dcos(mask_direction);
+	
+	var x1 = x_int - cosine * xrad + sine * yoff;
+	var y1 = y_int + sine * xrad + cosine * yoff;
+	var x2 = x_int + cosine * xrad + sine * yoff;
+	var y2 = y_int - sine * xrad + cosine * yoff;
+	
+	return collision_line(x1, y1, x2, y2, obj, true, false);
 }

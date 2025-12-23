@@ -1,25 +1,12 @@
-/// @function player_find_wall()
-/// @description Finds the first solid intersecting the sides of the player's virtual mask.
-/// @returns {Id.TileMapElement|Id.Instance}
-function player_find_wall()
-{
-	var n = array_find_index(solid_entities, function (inst)
-	{
-		return player_beam_collision(inst);
-	});
-	
-	return (n != -1 ? solid_entities[n] : noone);
-}
-
-/// @function player_find_floor(radius)
+/// @function player_find_floor(height)
 /// @description Finds the minimum distance between the player and the first solid intersecting the lower half of their virtual mask.
-/// @param {Real} radius Distance in pixels to extend the mask downward.
+/// @param {Real} height Distance in pixels to extend the mask downward.
 /// @returns {Real|Undefined}
-function player_find_floor(radius)
+function player_find_floor(height)
 {
-	for (var oy = 0; oy <= radius; ++oy)
+	for (var oy = 0; oy <= height; ++oy)
 	{
-		if (player_beam_collision(solid_entities, x_radius, oy))
+		if (player_beam_collision(solid_entities, x_radius, oy) != noone)
 		{
 			return oy;
 		}
@@ -28,32 +15,28 @@ function player_find_floor(radius)
 	return undefined;
 }
 
-/* TODO: since GameMaker's collision functions accept an array of entities to check against for collision,
-think about refactoring the player's collision functions to directly return the entity id; this would condense `player_find_wall`
-to one line of code. */
-
-/// @function player_find_ceiling(radius)
+/// @function player_find_ceiling(height)
 /// @description Finds the minimum distance between the player and the first solid intersecting the upper half of their virtual mask.
-/// @param {Real} radius Distance in pixels to extend the mask upward.
+/// @param {Real} height Distance in pixels to extend the mask upward.
 /// @returns {Real|Undefined}
-function player_find_ceiling(radius)
+function player_find_ceiling(height)
 {
-	var total = array_length(solid_entities);
-	for (var oy = 0; oy <= radius; ++oy)
+	for (var oy = 0; oy <= height; ++oy)
 	{
-		for (var n = 0; n < total; ++n)
+		var inst = player_beam_collision(solid_entities, x_radius, -oy);
+		
+		// Skip the solid if passing through it
+		if (inst == noone or inst == semisolid_tilemap or (instance_exists(inst) and inst.semisolid))
 		{
-			var inst = solid_entities[n];
-			
-			// Skip the solid if passing through it
-			if (inst == semisolid_tilemap or (instance_exists(inst) and inst.semisolid) or not player_beam_collision(inst, x_radius, -oy))
-			{
-				continue;
-			}
-			
-			return oy;
+			continue;
 		}
+		
+		return oy;
 	}
 	
 	return undefined;
 }
+
+/* AUTHOR NOTE:
+(1) Wall collisions are checked by calling `player_beam_collision(solid_entities)`.
+(2) If you simply wanted to check for the presence of a floor or ceiling, you can pass the `solid_entities` array to the `player_part_collision` function alongside your desired height. */
