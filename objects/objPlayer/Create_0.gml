@@ -95,10 +95,14 @@ player_perform = function (action)
 /// @description Rotates the player's virtual mask, if applicable.
 player_rotate_mask = function ()
 {
-	if (rotation_lock_time > 0) then --rotation_lock_time;
+	if (rotation_lock_time > 0 and not landed)
+	{
+		--rotation_lock_time;
+		exit;
+	}
 	
 	var new_rotation = (round(direction / 90) mod 4) * 90;
-	if (mask_direction != new_rotation and (landed or rotation_lock_time == 0))
+	if (mask_direction != new_rotation)
 	{
 		mask_direction = new_rotation;
 		rotation_lock_time = (not landed) * max(16 - abs(x_speed * 2) div 1, 0);

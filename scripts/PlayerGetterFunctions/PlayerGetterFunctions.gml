@@ -12,7 +12,7 @@ function player_calc_tile_normal(ox, oy, rot)
 	var sine = dsin(rot);
 	var cosine = dcos(rot);
 	
-	if (rot mod 180 == 0)
+	if (sine == 0)
 	{
 		var up = (rot == 180);
 		sensor_x[up] = ox div 16 * 16;
