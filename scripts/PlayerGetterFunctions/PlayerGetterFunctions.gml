@@ -7,22 +7,20 @@
 function player_calc_tile_normal(ox, oy, rot)
 {
 	// Setup angle sensors
-	var sensor_x = array_create(2, ox);
-	var sensor_y = array_create(2, oy);
 	var sine = dsin(rot);
 	var cosine = dcos(rot);
 	
 	if (sine == 0)
 	{
-		var up = (rot == 180);
-		sensor_x[up] = ox div 16 * 16;
-		sensor_x[not up] = sensor_x[up] + 15;
+		var sensor_y = array_create(2, oy);
+		var sensor_x = array_create(2, ox div 16 * 16);
+		sensor_x[rot == 0] += 15;
 	}
 	else
 	{
-		var right = (rot == 90);
-		sensor_y[right] = oy div 16 * 16;
-		sensor_y[not right] = sensor_y[right] + 15;
+		var sensor_x = array_create(2, ox);
+		var sensor_y = array_create(2, oy div 16 * 16);
+		sensor_y[rot == 270] += 15;
 	}
 	
 	// Extend / regress angle sensors

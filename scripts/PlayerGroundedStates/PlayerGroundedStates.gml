@@ -162,7 +162,8 @@ function player_is_running(phase)
 			player_resist_slope(0.125);
 			
 			// Roll
-			if (input_sign == 0 and abs(x_speed) >= 1.03125 and input_check(INPUT.DOWN))
+			var velocity = abs(x_speed);
+			if (input_sign == 0 and velocity >= 1.03125 and input_check(INPUT.DOWN))
 			{
 				sound_play(sfxRoll);
 				return player_perform(player_is_rolling);
@@ -172,7 +173,7 @@ function player_is_running(phase)
 			if (x_speed == 0 and input_sign == 0) return player_perform(player_is_standing);
 			
 			// Brake
-			if (can_brake and mask_direction == gravity_direction and abs(x_speed) >= 4 and animation != "brake")
+			if (can_brake and mask_direction == gravity_direction and velocity >= 4 and animation != "brake")
 			{
 				player_animate("brake");
 				timeline_speed = 1;
@@ -195,10 +196,9 @@ function player_is_running(phase)
 			}
 			else
 			{
-				var velocity = abs(x_speed) div 1;
 				var new_anim = (velocity < 6 ? "walk" : "run");
 				if (animation != new_anim) player_animate(new_anim);
-				timeline_speed = 1 / max(8 - velocity, 1);
+				timeline_speed = 1 / max(8 - velocity div 1, 1);
 				image_angle = direction;
 			}
 			break;
