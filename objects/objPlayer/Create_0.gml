@@ -54,7 +54,12 @@ solid_entities = variable_clone(ctrlZone.tilemaps, 0);
 tilemap_count = array_length(solid_entities);
 
 // Validate semisolid tilemap; if it exists, the tilemap count is even
-semisolid_tilemap = ((tilemap_count & 1) == 0 ? array_last(solid_entities) : -1);
+semisolid_tilemap = -1;
+if ((tilemap_count & 1) == 0)
+{
+	semisolid_tilemap = array_last(solid_entities);
+	--tilemap_count;
+}
 
 // Discard the "CollisionPlane1" layer tilemap, if it exists
 if (tilemap_count >= 3)

@@ -57,14 +57,9 @@ function player_detect_entities()
 	array_resize(solid_entities, tilemap_count);
 	
 	// Evaluate semisolid tilemap collision
-	if (semisolid_tilemap != -1)
+	if (semisolid_tilemap != -1 and player_beam_collision(semisolid_tilemap) == noone)
 	{
-		var valid = array_contains(solid_entities, semisolid_tilemap);
-		if (player_beam_collision(semisolid_tilemap) == noone)
-		{
-			if (not valid) array_push(solid_entities, semisolid_tilemap);
-		}
-		else if (valid) array_pop(solid_entities);
+		array_push(solid_entities, semisolid_tilemap);
 	}
 	
 	// Setup bounding rectangle
