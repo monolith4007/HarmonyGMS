@@ -106,7 +106,7 @@ player_rotate_mask = function ()
 		exit;
 	}
 	
-	var new_rotation = (round(direction / 90) mod 4) * 90;
+	var new_rotation = round(direction / 90) mod 4 * 90;
 	if (mask_direction != new_rotation)
 	{
 		mask_direction = new_rotation;

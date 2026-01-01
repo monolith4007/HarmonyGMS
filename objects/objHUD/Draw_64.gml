@@ -28,7 +28,7 @@ draw_text(88, 41, global.rings);
 
 // Timestamp
 var minutes = time div 3600;
-var seconds = (time div 60) mod 60;
+var seconds = time div 60 mod 60;
 var centiseconds = floor(time / 0.6) mod 100;
 
 draw_set_halign(fa_left);

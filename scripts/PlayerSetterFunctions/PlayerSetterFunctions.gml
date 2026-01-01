@@ -43,9 +43,34 @@ function player_eject_wall(inst)
 	return undefined;
 }
 
-/// @function player_resolve_angle()
-/// @description Determines the player's angle values.
-function player_resolve_angle()
+/// @function player_ground(height)
+/// @description Records the player as being on the ground, and repositions them by the given height if undefined is not passed.
+/// Otherwise, the player falls and is rotated towards their gravity direction.
+/// @param {Real|Undefined} height Amount in pixels to reposition the player, if applicable.
+function player_ground(height)
+{
+	if (height == undefined)
+	{
+		on_ground = false;
+		objCamera.on_ground = false;
+		mask_direction = gravity_direction;
+	}
+	else
+	{
+		// Align to ground
+		on_ground = true;
+		var offset = y_radius - height + 1;
+		x -= dsin(mask_direction) * offset;
+		y -= dcos(mask_direction) * offset;
+		
+		// Update angle values
+		player_detect_angle();
+	}
+}
+
+/// @function player_detect_angle()
+/// @description Sets the player's angle values.
+function player_detect_angle()
 {
 	// Check for ground collision using all vertical sensors
 	var edge = 0;
@@ -100,64 +125,10 @@ function player_resolve_angle()
 	local_direction = angle_wrap(direction - gravity_direction);
 }
 
-/// @function player_ground(height)
-/// @description Records the player as being on the ground, and repositions them by the given height if undefined is not passed.
-/// Otherwise, the player falls and is rotated towards their gravity direction.
-/// @param {Real|Undefined} height Amount in pixels to reposition the player, if applicable.
-function player_ground(height)
-{
-	on_ground = (height != undefined);
-	if (not on_ground)
-	{
-		direction = gravity_direction;
-		mask_direction = gravity_direction;
-		objCamera.on_ground = false;
-	}
-	else
-	{
-		// Align to ground
-		var offset = y_radius - height + 1;
-		x -= dsin(mask_direction) * offset;
-		y -= dcos(mask_direction) * offset;
-		
-		// Update angle values
-		player_resolve_angle();
-	}
-}
-
-/// @function player_refresh_physics()
-/// @description Resets the player's physics variables back to their default values, applying any modifiers afterward.
-function player_refresh_physics()
-{
-	// Speed values
-	speed_cap = 6;
-	acceleration = 0.046875;
-	deceleration = 0.5;
-	air_acceleration = 0.09375;
-	roll_deceleration = 0.125;
-	roll_friction = 0.0234375;
-	
-	// Aerial values
-	gravity_cap = 16;
-	gravity_force = 0.21875;
-	recoil_gravity = 0.1875;
-	jump_height = 6.5;
-	jump_release = 4;
-	
-	// Superspeed modification
-	if (superspeed_time > 0)
-	{
-		speed_cap *= 2;
-		acceleration *= 2;
-		air_acceleration *= 2;
-		roll_friction *= 2;
-	}
-}
-
-/// @function player_in_bounds()
+/// @function player_keep_in_bounds()
 /// @description Confines the player inside the camera boundary.
 /// @returns {Bool} Whether the player is inside the boundary or has fallen below it.
-function player_in_bounds()
+function player_keep_in_bounds()
 {
 	// Check if already inside (early out)
 	if (gravity_direction mod 180 == 0)
@@ -234,4 +205,33 @@ function player_in_bounds()
 	}
 	
 	return true;
+}
+
+/// @function player_refresh_physics()
+/// @description Resets the player's physics variables back to their default values, applying any modifiers afterward.
+function player_refresh_physics()
+{
+	// Speed values
+	speed_cap = 6;
+	acceleration = 0.046875;
+	deceleration = 0.5;
+	air_acceleration = 0.09375;
+	roll_deceleration = 0.125;
+	roll_friction = 0.0234375;
+	
+	// Aerial values
+	gravity_cap = 16;
+	gravity_force = 0.21875;
+	recoil_gravity = 0.1875;
+	jump_height = 6.5;
+	jump_release = 4;
+	
+	// Superspeed modification
+	if (superspeed_time > 0)
+	{
+		speed_cap *= 2;
+		acceleration *= 2;
+		air_acceleration *= 2;
+		roll_friction *= 2;
+	}
 }

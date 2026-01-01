@@ -50,9 +50,9 @@ function player_is_falling(phase)
 			}
 			
 			// Straighten
-			if (image_angle != direction)
+			if (image_angle != mask_direction)
 			{
-				var diff = angle_difference(direction, image_angle);
+				var diff = angle_difference(mask_direction, image_angle);
 				image_angle += min(2.8125, abs(diff)) * sign(diff);
 			}
 			break;
