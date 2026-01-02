@@ -1,6 +1,6 @@
 /// @function player_collision(obj)
 /// @description Checks if the given entity's mask intersects the player's virtual mask.
-/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap to check.
 /// @returns {Bool}
 function player_collision(obj)
 {
@@ -14,7 +14,7 @@ function player_collision(obj)
 
 /// @function player_part_collision(obj, ylen)
 /// @description Checks if the given entity's mask intersects a vertical portion of the player's virtual mask.
-/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap to check.
 /// @param {Real} ylen Distance in pixels to extend the player's mask vertically.
 /// @returns {Bool}
 function player_part_collision(obj, ylen)
@@ -34,7 +34,7 @@ function player_part_collision(obj, ylen)
 
 /// @function player_ray_collision(obj, xoff, ylen)
 /// @description Checks if the given entity's mask intersects a line from the player's position.
-/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap to check.
 /// @param {Real} xoff Distance in pixels to offset the line horizontally.
 /// @param {Real} ylen Distance in pixels to extend the line downward.
 /// @returns {Bool}
@@ -55,7 +55,7 @@ function player_ray_collision(obj, xoff, ylen)
 
 /// @function player_beam_collision(obj, [xrad], [yoff])
 /// @description Checks if the given entity's mask intersects a line from the player's position.
-/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap element to check.
+/// @param {Asset.GMObject|Id.Instance|Id.TileMapElement} obj Object, instance or tilemap to check.
 /// @param {Real} [xrad] Distance in pixels to extend the line horizontally on both ends (optional, default is the player's wall radius).
 /// @param {Real} [yoff] Distance in pixels to offset the line vertically (optional, default is 0).
 /// @returns {Asset.GMObject|Id.Instance|Id.TileMapElement}

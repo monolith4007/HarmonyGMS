@@ -45,6 +45,8 @@ gravity_direction = 0;
 local_direction = 0;
 mask_direction = 0;
 
+/* AUTHOR NOTE: "down" is treated as 0 degrees instead of 270. */
+
 cliff_sign = 0;
 
 collision_layer = 0;
@@ -55,14 +57,14 @@ tilemap_count = array_length(solid_entities);
 
 // Validate semisolid tilemap; if it exists, the tilemap count is even
 semisolid_tilemap = -1;
-if ((tilemap_count & 1) == 0)
+if (tilemap_count & 1 == 0)
 {
 	semisolid_tilemap = array_last(solid_entities);
 	--tilemap_count;
 }
 
 // Discard the "CollisionPlane1" layer tilemap, if it exists
-if (tilemap_count >= 3)
+if (tilemap_count == 3)
 {
 	array_delete(solid_entities, 2, 1);
 	--tilemap_count;

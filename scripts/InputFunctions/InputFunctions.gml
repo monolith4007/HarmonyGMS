@@ -4,11 +4,7 @@
 /// @returns {Bool}
 function input_check(command)
 {
-	command = 1 << command;
-	with (ctrlInput)
-	{
-		return (state & command) != 0;
-	}
+	return ctrlInput.state & (1 << command) != 0;
 }
 
 /// @function input_check_pressed(command)
@@ -20,7 +16,7 @@ function input_check_pressed(command)
 	command = 1 << command;
 	with (ctrlInput)
 	{
-		return (state & command) != 0 and (previous_state & command) == 0;
+		return state & command != 0 and previous_state & command == 0;
 	}
 }
 
@@ -33,6 +29,6 @@ function input_check_released(command)
 	command = 1 << command;
 	with (ctrlInput)
 	{
-		return (previous_state & command) != 0 and (state & command) == 0;
+		return previous_state & command != 0 and state & command == 0;
 	}
 }

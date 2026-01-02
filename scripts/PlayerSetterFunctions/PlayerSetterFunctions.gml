@@ -1,6 +1,6 @@
 /// @function player_eject_wall(inst)
 /// @description Moves the player's virtual mask out of collision with the given wall.
-/// @param {Id.Instance|Id.TileMapElement} inst Instance or tilemap element to eject from.
+/// @param {Id.Instance|Id.TileMapElement} inst Instance or tilemap to eject from.
 /// @returns {Real|Undefined} Sign of the wall from the player, or undefined on failure to reposition.
 function player_eject_wall(inst)
 {
@@ -44,8 +44,8 @@ function player_eject_wall(inst)
 }
 
 /// @function player_ground(height)
-/// @description Records the player as being on the ground, and repositions them by the given height if undefined is not passed.
-/// Otherwise, the player falls and is rotated towards their gravity direction.
+/// @description Aligns the player to the ground using the given height and updates their angle values.
+/// If undefined is passed instead, the player is detached from the ground.
 /// @param {Real|Undefined} height Amount in pixels to reposition the player, if applicable.
 function player_ground(height)
 {
@@ -57,13 +57,10 @@ function player_ground(height)
 	}
 	else
 	{
-		// Align to ground
-		on_ground = true;
 		var offset = y_radius - height + 1;
 		x -= dsin(mask_direction) * offset;
 		y -= dcos(mask_direction) * offset;
 		
-		// Update angle values
 		player_detect_angle();
 	}
 }
@@ -106,7 +103,7 @@ function player_detect_angle()
 	}*/
 	
 	// Calculate the ground normal and set new angle values
-	if ((edge & (edge - 1)) == 0) // Check if only one sensor is grounded (power of 2 calculation)
+	if (edge & (edge - 1) == 0) // Check if only one sensor is grounded (power of 2 calculation)
 	{
 		// Reposition offset point, if applicable
 		if (edge == 1)

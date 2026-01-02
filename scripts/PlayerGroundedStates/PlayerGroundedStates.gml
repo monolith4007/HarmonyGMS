@@ -183,7 +183,7 @@ function player_is_running(phase)
 			}
 			
 			// Animate
-			if (can_brake and animation == "brake" and timeline_position < timeline_max_moment(timeline_index))
+			if (can_brake and animation == "brake" and mask_direction == gravity_direction and timeline_position < timeline_max_moment(timeline_index))
 			{
 				if (timeline_position mod 4 == 0)
 				{
