@@ -2,20 +2,13 @@
 image_speed = 0;
 reaction = function (inst)
 {
-	var index = inst.result;
-	
-	// Abort if not intersecting
-	if (collision_layer == index or not player_collision(inst)) exit;
+	// Abort if not inside the instance
+	if (collision_point(x div 1, y div 1, inst, false, false) == noone) exit;
 	
 	// Switch
-	if (index > -1)
-	{
-		collision_layer = index;
-		solid_entities[1] = ctrlZone.tilemaps[index + 1];
-	}
-	else if (on_ground and x_speed != 0)
-	{
-		collision_layer = x_speed > 0;
-		solid_entities[1] = ctrlZone.tilemaps[collision_layer + 1];
-	}
+	collision_layer = sign(inst.image_xscale) == sign(x - xprevious);
+	solid_entities[1] = ctrlZone.tilemaps[collision_layer + 1];
 };
+
+/* AUTHOR NOTE: tilemap validation is not performed as it is assumed this object will not be placed
+in rooms that lack the "CollisionPlane0" and "CollisionPlane1" layers. */
