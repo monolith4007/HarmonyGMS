@@ -15,9 +15,15 @@ if (x_offset != 0 or y_offset != 0)
 	oy += -sine * x_offset + cosine * y_offset;
 }
 
-// Confine to borders
-ox = max(abs(ox) - 8, 0) * sign(ox);
-if (not on_ground) oy = max(abs(oy) - 32, 0) * sign(oy);
+// Limit to view border
+var x_border = 8;
+ox = max(abs(ox) - x_border, 0) * sign(ox);
+
+if (not on_ground)
+{
+	var y_border = 32;
+	oy = max(abs(oy) - y_border, 0) * sign(oy);
+}
 
 // Limit movement speed
 var x_speed_cap = 16 * (alarm[0] == -1);
