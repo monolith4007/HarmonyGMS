@@ -45,6 +45,10 @@ with (sprite_particles)
 	brake_dust = part_type_create();
 	part_type_life(brake_dust, 16, 16);
 	part_type_sprite(brake_dust, sprBrakeDust, true, true, false);
+	
+	exhaust = part_type_create();
+	part_type_life(exhaust, 16, 16);
+	part_type_sprite(exhaust, sprExhaust, true, true, false);
 }
 
 // Create global controllers

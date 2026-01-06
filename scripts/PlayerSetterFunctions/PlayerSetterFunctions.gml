@@ -49,19 +49,19 @@ function player_eject_wall(inst)
 /// @param {Real|Undefined} height Amount in pixels to reposition the player, if applicable.
 function player_ground(height)
 {
-	if (height == undefined)
-	{
-		on_ground = false;
-		objCamera.on_ground = false;
-		mask_direction = gravity_direction;
-	}
-	else
+	if (height != undefined)
 	{
 		var offset = y_radius - height + 1;
 		x -= dsin(mask_direction) * offset;
 		y -= dcos(mask_direction) * offset;
 		
 		player_detect_angle();
+	}
+	else
+	{
+		on_ground = false;
+		objCamera.on_ground = false;
+		mask_direction = gravity_direction;
 	}
 }
 
