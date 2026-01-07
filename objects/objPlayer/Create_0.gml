@@ -81,7 +81,8 @@ animations =
 	crouch: animSonicCrouch,
 	spindash: animSonicSpindash,
 	teeter: animSonicTeeter,
-	brake: animSonicBrake
+	brake: animSonicBrake,
+	hurt: animSonicHurt
 };
 
 // Misc.
