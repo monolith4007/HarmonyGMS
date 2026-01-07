@@ -142,3 +142,47 @@ function player_is_jumping(phase)
 		}
 	}
 }
+
+/// @function player_is_hurt(phase)
+function player_is_hurt(phase)
+{
+	switch (phase)
+	{
+		case PHASE.ENTER:
+		{
+			rolling = false;
+			player_ground(undefined);
+			
+			// Animate
+			player_animate("hurt");
+			timeline_speed = 1;
+			image_angle = gravity_direction;
+			break;
+		}
+		case PHASE.STEP:
+		{
+			// Move
+			player_move_in_air();
+			if (state_changed) exit;
+			
+			// Land
+			if (on_ground)
+			{
+				x_speed = 0;
+				return player_perform(player_is_standing);
+			}
+			
+			// Fall
+			if (y_speed < gravity_cap)
+			{
+				y_speed = min(y_speed + recoil_gravity, gravity_cap);
+			}
+			break;
+		}
+		case PHASE.EXIT:
+		{
+			recovery_time = 120;
+			break;
+		}
+	}
+}

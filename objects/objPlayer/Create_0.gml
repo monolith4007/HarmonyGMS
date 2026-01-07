@@ -13,7 +13,9 @@ spindash_charge = 0;
 // Timers
 rotation_lock_time = 0;
 control_lock_time = 0;
+recovery_time = 0;
 superspeed_time = 0;
+invincibility_time = 0;
 camera_look_time = 0;
 
 slide_duration = 30;
@@ -166,4 +168,31 @@ player_gain_lives = function (num)
 {
 	lives = min(lives + num, 99);
 	music_overlay(bgmLife);
+};
+
+/// @method player_damage(inst)
+/// @description Evaluates the player's condition after taking a hit.
+/// @param {Id.Instance} inst Instance to recoil from.
+player_damage = function (inst)
+{
+	// Abort if already invulnerable in any way
+	if (recovery_time > 0 or invincibility_time > 0 or state == player_is_hurt) exit;
+	
+	if (global.rings > 0)
+	{
+		player_perform(player_is_hurt);
+		
+		// Recoil
+		x_speed = 2 * (gravity_direction mod 180 == 0 ?
+			sign(x - inst.x) * dcos(gravity_direction) :
+			sign(inst.y - y) * dsin(gravity_direction));
+		
+		if (x_speed == 0) x_speed = 2;
+		y_speed = -4;
+	}
+	
+	/* TODO:
+	- Check for shields (once they've been added).
+	- Add dropped rings, and toss them.
+	- Add death state. */
 };
