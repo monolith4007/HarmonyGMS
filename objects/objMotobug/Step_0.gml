@@ -2,7 +2,7 @@
 var wall_offset = 2;
 
 // Horizontal
-if (place_meeting(x + hspeed, y - wall_offset, tilemaps))
+if (place_meeting(x + hspeed, y - wall_offset, tilemap))
 {
 	image_speed = 0;
 	hspeed = 0;
@@ -10,13 +10,13 @@ if (place_meeting(x + hspeed, y - wall_offset, tilemaps))
 }
 
 // Vertical
-if (place_meeting(x, y + wall_offset, tilemaps))
+if (place_meeting(x, y + wall_offset, tilemap))
 {
-	if (place_meeting(x, y, tilemaps))
+	if (place_meeting(x, y, tilemap))
 	{
 		--y;
 	}
-	else if (not place_meeting(x, y + 1, tilemaps))
+	else if (not place_meeting(x, y + 1, tilemap))
 	{
 		++y;
 	}

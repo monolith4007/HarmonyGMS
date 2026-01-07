@@ -118,7 +118,7 @@ function player_is_jumping(phase)
 			if (on_ground) return player_perform(x_speed != 0 ? player_is_running : player_is_standing);
 			
 			// Lower height
-			if (y_speed < -jump_release and input_check_released(INPUT.ACTION))
+			if (y_speed < -jump_release and not input_check(INPUT.ACTION))
 			{
 				y_speed = -jump_release;
 			}

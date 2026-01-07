@@ -46,9 +46,20 @@ with (sprite_particles)
 	part_type_life(brake_dust, 16, 16);
 	part_type_sprite(brake_dust, sprBrakeDust, true, true, false);
 	
+	explosion = part_type_create();
+	part_type_life(explosion, 30, 30);
+	part_type_sprite(explosion, sprExplosion, true, true, false);
+	
 	exhaust = part_type_create();
 	part_type_life(exhaust, 16, 16);
 	part_type_sprite(exhaust, sprExhaust, true, true, false);
+	
+	points = part_type_create();
+	part_type_life(points, 32, 32);
+	part_type_sprite(points, sprPoints, false, false, false);
+	part_type_direction(points, 90, 90, 0, 0);
+	part_type_gravity(points, 0.09375, 270);
+	part_type_speed(points, 3, 3, 0, 0);
 }
 
 // Create global controllers
