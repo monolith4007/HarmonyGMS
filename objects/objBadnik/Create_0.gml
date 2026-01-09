@@ -43,7 +43,7 @@ reaction = function (inst)
 		index = 2;
 	}
 	
-	score += bonus;
+	player_gain_score(bonus);
 	part_type_subimage(global.sprite_particles.points, index);
 	with (inst)
 	{

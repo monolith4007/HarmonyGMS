@@ -40,7 +40,7 @@ function player_detect_entities()
 	}
 	
 	/* AUTHOR NOTE:
-	(1) There is a limitation with the semisolid tilemap detection where, if the player passes through a semisolid tilemap whilst standing on one,
+	(1) There is a limitation with the semisolid tilemap detection where, if the player passes through it whilst standing on it,
 	they will fall as it will be delisted from their `solid_entities` array.
 	
 	(2) The size of the bounding rectangle must be coordinated with the distances used for collision checking:

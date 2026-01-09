@@ -131,7 +131,6 @@ player_resist_slope = function (force)
 	if (local_direction < 22.5 or local_direction > 337.5) exit; // Moving along a shallow slope
 	if (local_direction >= 135 and local_direction <= 225) exit; // Attached to a ceiling
 	
-	// Apply
 	x_speed -= dsin(local_direction) * force;
 };
 
@@ -143,6 +142,19 @@ player_animate = function (name)
 	animation = name;
 	timeline_index = animations[$ name];
 	timeline_position = 0;
+};
+
+/// @method player_gain_score(num)
+/// @description Increases the player's score count by the given amount.
+/// @param {Real} num Amount of points to give.
+player_gain_score = function (num)
+{
+	var previous_count = score div 50000;
+	score = min(score + num, 999999);
+	
+	// Gain lives
+	var count = score div 50000;
+	if (count != previous_count) player_gain_lives(count - previous_count);
 };
 
 /// @method player_gain_rings(num)
@@ -157,10 +169,13 @@ player_gain_rings = function (num)
 	static ring_life_threshold = 99;
 	if (global.rings > ring_life_threshold)
 	{
-		var change = global.rings div 100;
-		player_gain_lives(change - ring_life_threshold div 100);
-		ring_life_threshold = change * 100 + 99;
+		var count = global.rings div 100;
+		player_gain_lives(count - ring_life_threshold div 100);
+		ring_life_threshold = count * 100 + 99;
 	}
+	
+	/* TODO: convert `ring_life_threshold` into a global variable or something else,
+	as static variables in methods retain their values even if the holding instance has been destroyed. */
 };
 
 /// @method player_gain_lives(num)
