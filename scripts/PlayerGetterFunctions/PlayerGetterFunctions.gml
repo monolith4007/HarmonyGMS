@@ -1,15 +1,15 @@
-/// @function player_detect_entities()
+/// @function player_get_collisions()
 /// @description Finds any instances intersecting a minimum bounding rectangle centered on the player, and executes their reaction.
-/// It also records any solid tilemaps and instances for terrain collision detection.
-function player_detect_entities()
+/// It also registers any tilemaps and solid instances for terrain collision detection.
+function player_get_collisions()
 {
-	// Delist solid zone objects
-	array_resize(solid_entities, tilemap_count);
+	// Delist solid instances
+	array_resize(solid_colliders, tilemap_count);
 	
 	// Register semisolid tilemap
 	if (semisolid_tilemap != -1 and player_beam_collision(semisolid_tilemap) == noone)
 	{
-		array_push(solid_entities, semisolid_tilemap);
+		array_push(solid_colliders, semisolid_tilemap);
 	}
 	
 	// Setup bounding rectangle
@@ -36,12 +36,12 @@ function player_detect_entities()
 		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
 		if (inst.semisolid and player_beam_collision(inst) != noone) continue; // Passing through
 		
-		array_push(solid_entities, inst);
+		array_push(solid_colliders, inst);
 	}
 	
 	/* AUTHOR NOTE:
 	(1) There is a limitation with the semisolid tilemap detection where, if the player passes through it whilst standing on it,
-	they will fall as it will be delisted from their `solid_entities` array.
+	they will fall as it will be delisted from their `solid_colliders` array.
 	
 	(2) The size of the bounding rectangle must be coordinated with the distances used for collision checking:
 	- Wall collisions check for a distance of `x_wall_radius`, so this is the rectangle's width.
@@ -81,12 +81,12 @@ function player_calc_tile_normal(ox, oy, rot)
 	{
 		repeat (y_tile_reach)
 		{
-			if (collision_point(sensor_x[n], sensor_y[n], solid_entities, true, false) == noone)
+			if (collision_point(sensor_x[n], sensor_y[n], solid_colliders, true, false) == noone)
 			{
 				sensor_x[n] += sine;
 				sensor_y[n] += cosine;
 			}
-			else if (collision_point(sensor_x[n] - sine, sensor_y[n] - cosine, solid_entities, true, false) != noone)
+			else if (collision_point(sensor_x[n] - sine, sensor_y[n] - cosine, solid_colliders, true, false) != noone)
 			{
 				sensor_x[n] -= sine;
 				sensor_y[n] -= cosine;

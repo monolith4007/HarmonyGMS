@@ -7,7 +7,7 @@ reaction = function (inst)
 	
 	// Switch
 	collision_layer = sign(inst.image_xscale) == sign(x - xprevious);
-	solid_entities[1] = ctrlZone.tilemaps[collision_layer + 1];
+	solid_colliders[1] = ctrlZone.tilemaps[collision_layer + 1];
 };
 
 /* AUTHOR NOTE: tilemap validation is not performed as it is assumed this object will not be placed

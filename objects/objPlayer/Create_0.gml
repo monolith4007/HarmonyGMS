@@ -56,21 +56,21 @@ cliff_sign = 0;
 collision_layer = 0;
 
 // Copy the stage's tilemaps
-solid_entities = variable_clone(ctrlZone.tilemaps, 0);
-tilemap_count = array_length(solid_entities);
+solid_colliders = variable_clone(ctrlZone.tilemaps, 0);
+tilemap_count = array_length(solid_colliders);
 
 // Validate semisolid tilemap; if it exists, the tilemap count is even
 semisolid_tilemap = -1;
 if (tilemap_count & 1 == 0)
 {
-	semisolid_tilemap = array_last(solid_entities);
+	semisolid_tilemap = array_last(solid_colliders);
 	--tilemap_count;
 }
 
 // Discard the "CollisionPlane1" layer tilemap, if it exists
 if (tilemap_count == 3)
 {
-	array_delete(solid_entities, 2, 1);
+	array_delete(solid_colliders, 2, 1);
 	--tilemap_count;
 }
 
