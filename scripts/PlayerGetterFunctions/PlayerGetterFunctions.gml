@@ -33,7 +33,7 @@ function player_get_collisions()
 		script_execute(inst.reaction, inst);
 		
 		// Register solid instances; skip the current instance if...
-		if (not (instance_exists(inst) and object_is_ancestor(inst.object_index, objSolid))) continue; // It has been destroyed after its reaction, or is not solid
+		if (not instance_exists(inst) or inst[$ "semisolid"] == undefined) continue; // It has been destroyed after its reaction, or is not solid
 		if (inst.semisolid and player_beam_collision(inst) != noone) continue; // Passing through
 		
 		array_push(solid_colliders, inst);

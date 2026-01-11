@@ -20,7 +20,7 @@ switch (room)
 	}
 }
 
-// Setup tilemaps; discard invalid ones
+// Setup tilemaps; delist invalid ones
 tilemaps =
 [
 	layer_tilemap_get_id("CollisionMain"),

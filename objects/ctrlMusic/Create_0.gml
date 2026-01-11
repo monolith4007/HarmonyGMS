@@ -1,9 +1,9 @@
 /// @description Initialize
 image_speed = 0;
 
-queue = ds_priority_create();
 stream = -1;
 overlay = -1;
+queue = ds_priority_create();
 looping_tracks = [bgmMadGear];
 
 /// @method set_music_loop(soundid, loop_start, loop_end)

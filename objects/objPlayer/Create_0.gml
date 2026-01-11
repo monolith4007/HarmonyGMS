@@ -67,7 +67,7 @@ if (tilemap_count & 1 == 0)
 	--tilemap_count;
 }
 
-// Discard the "CollisionPlane1" layer tilemap, if it exists
+// Delist the "CollisionPlane1" layer tilemap, if it exists
 if (tilemap_count == 3)
 {
 	array_delete(solid_colliders, 2, 1);
