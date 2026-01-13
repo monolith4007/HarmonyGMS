@@ -113,9 +113,9 @@ function player_move_in_air()
 					x_speed = cosine * g_speed;
 					y_speed = -sine * g_speed;
 					
-					// Detach and exit loop
+					// Revert mask rotation and exit loop
+					mask_direction = gravity_direction;
 					landed = false;
-					player_ground(undefined);
 					break;
 				}
 			}
@@ -136,6 +136,7 @@ function player_move_in_air()
 			landed = false;
 			on_ground = true;
 			objCamera.on_ground = true;
+			if (badnik_chain > 0 and invincibility_time == 0) badnik_chain = 0;
 			break;
 		}
 	}

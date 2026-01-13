@@ -27,8 +27,6 @@ function player_is_standing(phase)
 	{
 		case PHASE.ENTER:
 		{
-			rolling = false;
-			
 			// Check if standing on a cliff
 			cliff_sign = 0;
 			var height = y_radius + y_tile_reach;
@@ -94,7 +92,6 @@ function player_is_running(phase)
 	{
 		case PHASE.ENTER:
 		{
-			rolling = false;
 			break;
 		}
 		case PHASE.STEP:
@@ -394,6 +391,7 @@ function player_is_rolling(phase)
 		}
 		case PHASE.EXIT:
 		{
+			if (on_ground) rolling = false;
 			break;
 		}
 	}

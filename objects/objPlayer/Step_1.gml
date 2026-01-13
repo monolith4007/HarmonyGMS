@@ -17,4 +17,6 @@ if (superspeed_time > 0 and --superspeed_time == 0)
 if (invincibility_time > 0 and --invincibility_time == 0)
 {
 	// TODO: add invincibility sparkles & BGM, and remove them here
+	
+	if (badnik_chain > 0 and not rolling) badnik_chain = 0;
 }
