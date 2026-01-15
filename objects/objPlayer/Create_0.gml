@@ -86,7 +86,8 @@ animations =
 	spindash: animSonicSpindash,
 	teeter: animSonicTeeter,
 	brake: animSonicBrake,
-	hurt: animSonicHurt
+	hurt: animSonicHurt,
+	dead: animSonicDead
 };
 
 // Misc.
