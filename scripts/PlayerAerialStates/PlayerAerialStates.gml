@@ -59,7 +59,6 @@ function player_is_falling(phase)
 		}
 		case PHASE.EXIT:
 		{
-			if (rolling) rolling = false;
 			break;
 		}
 	}
@@ -139,7 +138,6 @@ function player_is_jumping(phase)
 		}
 		case PHASE.EXIT:
 		{
-			rolling = false;
 			break;
 		}
 	}
@@ -152,7 +150,7 @@ function player_is_hurt(phase)
 	{
 		case PHASE.ENTER:
 		{
-			if (rolling) rolling = false;
+			rolling = false;
 			player_ground(undefined);
 			
 			// Animate

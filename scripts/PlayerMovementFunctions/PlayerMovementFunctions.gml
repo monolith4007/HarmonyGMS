@@ -136,6 +136,7 @@ function player_move_in_air()
 			landed = false;
 			on_ground = true;
 			objCamera.on_ground = true;
+			rolling = false;
 			if (badnik_chain > 0 and invincibility_time == 0) badnik_chain = 0;
 			break;
 		}

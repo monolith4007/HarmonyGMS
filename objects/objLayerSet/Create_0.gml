@@ -3,7 +3,7 @@ image_speed = 0;
 reaction = function (inst)
 {
 	// Abort if not inside the instance
-	if (collision_point(x div 1, y div 1, inst, false, false) == noone) exit;
+	if (collision_circle(x div 1, y div 1, 1, inst, false, false) == noone) exit;
 	
 	// Switch
 	collision_layer = sign(inst.image_xscale) == sign(x - xprevious);
