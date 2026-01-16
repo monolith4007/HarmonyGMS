@@ -63,15 +63,12 @@ with (sprite_particles)
 	part_type_speed(points, 3, 3, 0, 0);
 }
 
-// Create global controllers
-call_later(1, time_source_units_frames, function ()
-{
-	instance_create_layer(0, 0, "Controllers", ctrlWindow);
-	instance_create_layer(0, 0, "Controllers", ctrlInput);
-	instance_create_layer(0, 0, "Controllers", ctrlMusic);
-	
-	music_enqueue(bgmMadGear, 0);
-});
+// Start the game!
+call_later(1, time_source_units_frames, room_goto_next);
 
-/* AUTHOR NOTE: this must be done one frame later as the first room will not have loaded yet.
-Due to this, for testing purposes, the Mad Gear track is enqueued here. */
+/* AUTHOR NOTE: `room_goto_next` executes at the end of the function/event it was called in,
+meaning calling it here would result in the global controllers not being created.
+Thus, it is instead called 1 frame later.
+
+Note, however, this means the initialization room will be shown for that 1 frame.
+Calling `room_goto_next` in the room's Creation Code does not address this, either. */

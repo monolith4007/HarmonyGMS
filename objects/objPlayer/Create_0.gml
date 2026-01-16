@@ -196,6 +196,7 @@ player_damage = function (inst)
 	// Abort if already invulnerable in any way
 	if (recovery_time > 0 or invincibility_time > 0 or state == player_is_hurt) exit;
 	
+	rolling = false;
 	if (global.rings > 0)
 	{
 		player_perform(player_is_hurt);
@@ -208,9 +209,9 @@ player_damage = function (inst)
 		if (x_speed == 0) x_speed = 2;
 		y_speed = -4;
 	}
+	else player_perform(player_is_dead);
 	
 	/* TODO:
 	- Check for shields (once they've been added).
-	- Add dropped rings, and toss them.
-	- Add death state. */
+	- Add dropped rings, and toss them. */
 };

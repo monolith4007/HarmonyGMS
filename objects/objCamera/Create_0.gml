@@ -13,5 +13,7 @@ on_ground = true;
 x_offset = 0;
 y_offset = 0;
 
-// Center view
-camera_set_view_pos(CAMERA_ID, x - CAMERA_WIDTH * 0.5, y - CAMERA_HEIGHT * 0.5);
+// Center the view
+var ox = clamp(x - CAMERA_WIDTH * 0.5, bound_left, bound_right - CAMERA_WIDTH);
+var oy = clamp(y - CAMERA_HEIGHT * 0.5, bound_top, bound_bottom - CAMERA_HEIGHT);
+camera_set_view_pos(CAMERA_ID, ox, oy);

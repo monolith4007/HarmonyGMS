@@ -150,7 +150,6 @@ function player_is_hurt(phase)
 	{
 		case PHASE.ENTER:
 		{
-			rolling = false;
 			player_ground(undefined);
 			
 			// Animate
@@ -182,6 +181,46 @@ function player_is_hurt(phase)
 		case PHASE.EXIT:
 		{
 			recovery_time = 120;
+			break;
+		}
+	}
+}
+
+/// @function player_is_dead(phase)
+function player_is_dead(phase)
+{
+	switch (phase)
+	{
+		case PHASE.ENTER:
+		{
+			y_speed = -7;
+			ctrlZone.time_enabled = false;
+			instance_destroy(objCamera);
+			sound_play(sfxDeath);
+			
+			// Animate
+			player_animate("dead");
+			image_angle = gravity_direction;
+			break;
+		}
+		case PHASE.STEP:
+		{
+			// Move
+			x += dsin(image_angle) * y_speed;
+			y += dcos(image_angle) * y_speed;
+			y_speed += gravity_force;
+			
+			// Restart (TODO: add fading and game over)
+			if (y_speed > 3 and not instance_in_view())
+			{
+				//--lives;
+				call_later(1, time_source_units_seconds, room_restart);
+				instance_destroy();
+			}
+			break;
+		}
+		case PHASE.EXIT:
+		{
 			break;
 		}
 	}

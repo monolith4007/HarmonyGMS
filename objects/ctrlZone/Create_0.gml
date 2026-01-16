@@ -9,13 +9,14 @@ time_enabled = true;
 
 //alarm[0] = 5;
 
-// Identify stage
+// Identify stage and enqueue music
 switch (room)
 {
 	case rmTest:
 	{
 		name = "DEMONSTRATION";
 		act = 1;
+		music_enqueue(bgmMadGear, 0);
 		break;
 	}
 }

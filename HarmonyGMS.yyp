@@ -64,6 +64,7 @@
     {"id":{"name":"objRing","path":"objects/objRing/objRing.yy",},},
     {"id":{"name":"objSolid","path":"objects/objSolid/objSolid.yy",},},
     {"id":{"name":"objZoneObject","path":"objects/objZoneObject/objZoneObject.yy",},},
+    {"id":{"name":"rmInit","path":"rooms/rmInit/rmInit.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"AudioFunctions","path":"scripts/AudioFunctions/AudioFunctions.yy",},},
     {"id":{"name":"GameSetup","path":"scripts/GameSetup/GameSetup.yy",},},
@@ -79,6 +80,7 @@
     {"id":{"name":"bgmLife","path":"sounds/bgmLife/bgmLife.yy",},},
     {"id":{"name":"bgmMadGear","path":"sounds/bgmMadGear/bgmMadGear.yy",},},
     {"id":{"name":"sfxBrake","path":"sounds/sfxBrake/sfxBrake.yy",},},
+    {"id":{"name":"sfxDeath","path":"sounds/sfxDeath/sfxDeath.yy",},},
     {"id":{"name":"sfxDestroy","path":"sounds/sfxDestroy/sfxDestroy.yy",},},
     {"id":{"name":"sfxJump","path":"sounds/sfxJump/sfxJump.yy",},},
     {"id":{"name":"sfxRing","path":"sounds/sfxRing/sfxRing.yy",},},
@@ -127,6 +129,7 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rmInit","path":"rooms/rmInit/rmInit.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
   ],
   "templateType":"game",
