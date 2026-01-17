@@ -15,9 +15,9 @@ function music_overlay(soundid)
 {
 	with (ctrlMusic)
 	{
-		// Stop existing overlay, otherwise mute stream
-		if (overlay != -1) audio_stop_sound(overlay);
-		else audio_sound_gain(stream, 0);
+		// Mute stream / stop existing overlay
+		if (overlay == -1) audio_sound_gain(stream, 0);
+		else audio_stop_sound(overlay);
 		
 		// Play overlay
 		overlay = audio_play_sound(soundid, 2, false, global.volume_music);

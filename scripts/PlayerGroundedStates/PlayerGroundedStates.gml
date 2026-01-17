@@ -101,7 +101,7 @@ function player_is_running(phase)
 			
 			// Handle ground motion
 			var input_sign = input_check(INPUT.RIGHT) - input_check(INPUT.LEFT);
-			var can_brake = (animation == "brake");
+			var can_brake = animation == "brake";
 			
 			if (control_lock_time == 0)
 			{
