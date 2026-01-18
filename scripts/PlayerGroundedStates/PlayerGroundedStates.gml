@@ -214,7 +214,6 @@ function player_is_looking(phase)
 	{
 		case PHASE.ENTER:
 		{
-			camera_look_time = 120;
 			player_animate("look");
 			break;
 		}
@@ -259,6 +258,7 @@ function player_is_looking(phase)
 		}
 		case PHASE.EXIT:
 		{
+			camera_look_time = 120;
 			break;
 		}
 	}
@@ -271,7 +271,6 @@ function player_is_crouching(phase)
 	{
 		case PHASE.ENTER:
 		{
-			camera_look_time = 120;
 			player_animate("crouch");
 			break;
 		}
@@ -316,6 +315,7 @@ function player_is_crouching(phase)
 		}
 		case PHASE.EXIT:
 		{
+			camera_look_time = 120;
 			break;
 		}
 	}

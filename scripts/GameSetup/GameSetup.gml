@@ -17,7 +17,7 @@ enum PHASE
 // Misc.
 show_debug_overlay(true);
 surface_depth_disable(true);
-audio_channel_num(16);
+audio_channel_num(12);
 randomize();
 
 // Volumes

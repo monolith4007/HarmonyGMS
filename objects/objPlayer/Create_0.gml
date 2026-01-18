@@ -18,7 +18,7 @@ control_lock_time = 0;
 recovery_time = 0;
 superspeed_time = 0;
 invincibility_time = 0;
-camera_look_time = 0;
+camera_look_time = 120;
 
 slide_duration = 30;
 

@@ -9,12 +9,8 @@ with (objCamera)
 	y = other.y div 1;
 	
 	// Center
-	if (y_offset != 0)
+	if (y_offset != 0 and other.camera_look_time > 0)
 	{
-		var action = other.state;
-		if ((action != player_is_looking and action != player_is_crouching) or other.camera_look_time > 0)
-		{
-			y_offset -= 2 * sign(y_offset);
-		}
+		y_offset -= 2 * sign(y_offset);
 	}
 }
