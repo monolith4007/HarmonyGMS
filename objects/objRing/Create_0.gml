@@ -2,8 +2,8 @@
 image_speed = 0;
 reaction = function (inst)
 {
-	// Abort if not intersecting
-	if (not player_collision(inst)) exit;
+	// Abort if recovering or not intersecting
+	if (recovery_time > 90 or state == player_is_hurt or not player_collision(inst)) exit;
 	
 	// Collect
 	player_gain_rings(1);

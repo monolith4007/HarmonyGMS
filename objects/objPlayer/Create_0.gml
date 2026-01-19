@@ -199,6 +199,7 @@ player_damage = function (inst)
 	rolling = false;
 	if (global.rings > 0)
 	{
+		player_drop_rings();
 		player_perform(player_is_hurt);
 		
 		// Recoil
@@ -211,7 +212,47 @@ player_damage = function (inst)
 	}
 	else player_perform(player_is_dead);
 	
-	/* TODO:
-	- Check for shields (once they've been added).
-	- Add dropped rings, and toss them. */
+	// TODO: check for shields (once they've been added).
+};
+
+/// @method player_drop_rings()
+/// @description Spawns up to 32 dropped rings in circles of 16 at the player's position, and resets their ring count.
+player_drop_rings = function ()
+{
+	var tilemaps = ctrlZone.tilemaps;
+	var spd = 4;
+	var dir = 101.25;
+	
+	for (var n = min(global.rings, 32); n > 0; --n)
+	{
+		with (instance_create_layer(x, y, layer, objRing))
+		{
+			self.tilemaps = tilemaps;
+			image_speed = 0.512;
+			alarm[0] = 256;
+			gravity_direction = other.gravity_direction;
+			image_angle = gravity_direction;
+			
+			sine = dsin(gravity_direction);
+			cosine = dcos(gravity_direction);
+			
+			x_speed = lengthdir_x(spd, dir);
+			y_speed = lengthdir_y(spd, dir);
+			gravity_force = 0.09375;
+			
+			if (n & 1 != 0)
+			{
+				x_speed *= -1;
+				dir += 22.5;
+			}
+		}
+		if (n == 16)
+		{
+			spd = 2;
+			dir = 101.25;
+		}
+	}
+	
+	global.rings = 0;
+	sound_play(sfxRingLoss);
 };

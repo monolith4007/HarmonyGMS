@@ -84,6 +84,7 @@
     {"id":{"name":"sfxDestroy","path":"sounds/sfxDestroy/sfxDestroy.yy",},},
     {"id":{"name":"sfxJump","path":"sounds/sfxJump/sfxJump.yy",},},
     {"id":{"name":"sfxRing","path":"sounds/sfxRing/sfxRing.yy",},},
+    {"id":{"name":"sfxRingLoss","path":"sounds/sfxRingLoss/sfxRingLoss.yy",},},
     {"id":{"name":"sfxRoll","path":"sounds/sfxRoll/sfxRoll.yy",},},
     {"id":{"name":"sfxSpinDash","path":"sounds/sfxSpinDash/sfxSpinDash.yy",},},
     {"id":{"name":"sfxSpinRev","path":"sounds/sfxSpinRev/sfxSpinRev.yy",},},
