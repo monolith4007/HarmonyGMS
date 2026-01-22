@@ -14,8 +14,8 @@ if (not instance_in_view( , CAMERA_PADDING * 0.5))
 /* AUTHOR NOTE: the variables below are initialized in the `player_drop_rings` method. */
 
 // Move horizontally
-var ox = cosine * x_speed;
-var oy = sine * x_speed;
+var ox = gravity_cos * x_speed;
+var oy = gravity_sin * x_speed;
 x += ox;
 y -= oy;
 
@@ -39,8 +39,8 @@ if (inst != noone and not place_meeting(xprevious, yprevious, inst))
 }
 
 // Move vertically
-ox = sine * y_speed;
-oy = cosine * y_speed;
+ox = gravity_sin * y_speed;
+oy = gravity_cos * y_speed;
 x += ox;
 y += oy;
 

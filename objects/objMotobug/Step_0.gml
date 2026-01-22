@@ -23,7 +23,7 @@ if (place_meeting(x, y + wall_offset, tilemap))
 }
 
 // Vent
-if (hspeed != 0 and ctrlWindow.image_index mod 16 == 0)
+if (hspeed != 0 and x mod 16 == 0) //ctrlWindow.image_index mod 16 == 0)
 {
 	particle_spawn("exhaust", x - 20 * image_xscale, y);
 }

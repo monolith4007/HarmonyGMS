@@ -233,8 +233,8 @@ player_drop_rings = function ()
 			gravity_direction = other.gravity_direction;
 			image_angle = gravity_direction;
 			
-			sine = dsin(gravity_direction);
-			cosine = dcos(gravity_direction);
+			gravity_sin = dsin(gravity_direction);
+			gravity_cos = dcos(gravity_direction);
 			
 			x_speed = lengthdir_x(spd, dir);
 			y_speed = lengthdir_y(spd, dir);
