@@ -76,6 +76,7 @@ function player_ground(height)
 function player_detect_angle()
 {
 	// Check for ground collision using all vertical sensors
+	//ground_snap = true;
 	var edge = 0;
 	if (player_ray_collision(solid_colliders, -x_radius, y_radius + 1)) edge |= 1;
 	if (player_ray_collision(solid_colliders, x_radius, y_radius + 1)) edge |= 2;
@@ -84,33 +85,36 @@ function player_detect_angle()
 	// Abort on no collision
 	if (edge == 0) exit;
 	
-	// Define offset point from which the ground normal should be calculated
-	var sine = dsin(mask_direction);
-	var cosine = dcos(mask_direction);
-	var ox = x div 1 + sine * y_radius;
-	var oy = y div 1 + cosine * y_radius;
-	
-	// Check for steep angle ranges at ramp edges
-	/*ground_snap = true;
-	if (not (landed or player_ray_collision(solid_colliders, 0, y_radius + y_tile_reach)) and
-		(player_ray_collision(solid_colliders, -x_radius, y_radius + y_tile_reach) xor
-		player_ray_collision(solid_colliders, x_radius, y_radius + y_tile_reach)))
+	// Set new angle values
+	if (edge & (edge - 1) != 0) // Check if at least two sensors are grounded (non-power of 2 calculation)
 	{
-		// Calculate...
-		var perp_dir = player_calc_tile_normal(ox + sine, oy + cosine, mask_direction + (edge == 2 ? 90 : 270)); // The normal of the ramp edge
-		var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
+		direction = mask_direction;
+	}
+	else
+	{
+		// Setup offset point
+		var sine = dsin(mask_direction);
+		var cosine = dcos(mask_direction);
+		var ox = x div 1 + sine * y_radius;
+		var oy = y div 1 + cosine * y_radius;
 		
-		// If the difference is too steep, do not snap down to the ground, and abort
-		if (diff > 45 and diff < 90)
+		// Check for steep angle ranges at ramp edges
+		/*if (not (landed or player_ray_collision(solid_colliders, 0, y_radius + y_tile_reach)) and
+			(player_ray_collision(solid_colliders, -x_radius, y_radius + y_tile_reach) xor
+			player_ray_collision(solid_colliders, x_radius, y_radius + y_tile_reach)))
 		{
-			ground_snap = false;
-			exit;
-		}
-	}*/
-	
-	// Calculate the ground normal and set new angle values
-	if (edge & (edge - 1) == 0) // Check if only one sensor is grounded (power of 2 calculation)
-	{
+			// Calculate...
+			var perp_dir = player_calc_tile_normal(ox + sine, oy + cosine, mask_direction + (edge == 2 ? 90 : 270)); // The normal of the ramp edge
+			var diff = abs(angle_difference(perp_dir, direction)); // Difference between normal and current angle
+			
+			// If the difference is too steep, do not snap down to the ground, and abort
+			if (diff > 45 and diff < 90)
+			{
+				ground_snap = false;
+				exit;
+			}
+		}*/
+		
 		// Reposition offset point, if applicable
 		if (edge == 1)
 		{
@@ -124,7 +128,6 @@ function player_detect_angle()
 		}
 		direction = player_calc_tile_normal(ox, oy, mask_direction);
 	}
-	else direction = mask_direction;
 	local_direction = angle_wrap(direction - gravity_direction);
 }
 
