@@ -4,35 +4,41 @@
 /// @returns {Real|Undefined} Sign of the wall from the player, or undefined on failure to reposition.
 function player_eject_wall(inst)
 {
+	var x_int = x div 1;
+	var y_int = y div 1;
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
-	var inside = collision_point(x div 1, y div 1, inst, true, false) != noone;
 	
-	for (var ox = 1; ox <= x_wall_radius; ++ox)
+	if (collision_point(x_int, y_int, inst, true, false) == noone)
 	{
-		if (not inside)
+		for (var ox = x_wall_radius - 1; ox > -1; --ox)
 		{
-			// Left of the wall
-			if (player_ray_collision(inst, ox, 0))
+			if (player_beam_collision(inst, ox) == noone)
 			{
-				x -= cosine * (x_wall_radius - ox + 1);
-				y += sine * (x_wall_radius - ox + 1);
-				return 1;
-			}
-			else if (player_ray_collision(inst, -ox, 0)) // Right of the wall
-			{
-				x += cosine * (x_wall_radius - ox + 1);
-				y -= sine * (x_wall_radius - ox + 1);
-				return -1;
+				if (collision_point(x_int + cosine * (ox + 1), y_int - sine * (ox + 1), inst, true, false) != noone)
+				{
+					x -= cosine * (x_wall_radius - ox);
+					y += sine * (x_wall_radius - ox);
+					return 1;
+				}
+				else if (collision_point(x_int - cosine * (ox + 1), y_int + sine * (ox + 1), inst, true, false) != noone)
+				{
+					x += cosine * (x_wall_radius - ox);
+					y -= sine * (x_wall_radius - ox);
+					return -1;
+				}
 			}
 		}
-		else if (not player_ray_collision(inst, ox, 0)) // Right of the wall
+	}
+	else for (var ox = 1; ox <= x_wall_radius; ++ox)
+	{
+		if (collision_point(x_int + cosine * ox, y_int - sine * ox, inst, true, false) == noone)
 		{
 			x += cosine * (x_wall_radius + ox);
 			y -= sine * (x_wall_radius + ox);
 			return -1;
 		}
-		else if (not player_ray_collision(inst, -ox, 0)) // Left of the wall
+		else if (collision_point(x_int - cosine * ox, y_int + sine * ox, inst, true, false) == noone)
 		{
 			x -= cosine * (x_wall_radius + ox);
 			y += sine * (x_wall_radius + ox);
@@ -170,7 +176,8 @@ function player_keep_in_bounds()
 			x = right - x_radius;
 			x_speed = 0;
 		}
-		else if (y1 > bottom and gravity_direction == 0)
+		
+		if (y1 > bottom and gravity_direction == 0)
 		{
 			y = bottom + y_radius;
 			return false;
@@ -181,25 +188,29 @@ function player_keep_in_bounds()
 			return false;
 		}
 	}
-	else if (y1 < top)
+	else
 	{
-		y = top + x_radius;
-		x_speed = 0;
-	}
-	else if (y2 > bottom)
-	{
-		y = bottom - x_radius;
-		x_speed = 0;
-	}
-	else if (x1 > right and gravity_direction == 90)
-	{
-		x = right + y_radius;
-		return false;
-	}
-	else if (x2 < left and gravity_direction == 270)
-	{
-		x = left - y_radius;
-		return false;
+		if (y1 < top)
+		{
+			y = top + x_radius;
+			x_speed = 0;
+		}
+		else if (y2 > bottom)
+		{
+			y = bottom - x_radius;
+			x_speed = 0;
+		}
+		
+		if (x1 > right and gravity_direction == 90)
+		{
+			x = right + y_radius;
+			return false;
+		}
+		else if (x2 < left and gravity_direction == 270)
+		{
+			x = left - y_radius;
+			return false;
+		}
 	}
 	
 	return true;

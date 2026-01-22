@@ -25,7 +25,9 @@ function player_move_on_ground()
 		// Move by a single step
 		x += dcos(direction) * step;
 		y -= dsin(direction) * step;
-		player_keep_in_bounds(); // TODO: add death state and call it if this is false
+		
+		// Die if out of bounds
+		if (not player_keep_in_bounds()) return player_perform(player_is_dead);
 		
 		// Detect instances and tilemaps
 		player_get_collisions();
@@ -69,7 +71,9 @@ function player_move_in_air()
 		// Move by a single step
 		x += cosine * x_step + sine * y_step;
 		y += -sine * x_step + cosine * y_step;
-		player_keep_in_bounds();
+		
+		// Die if out of bounds
+		if (not player_keep_in_bounds()) return player_perform(player_is_dead);
 		
 		// Detect instances and tilemaps
 		player_get_collisions();
