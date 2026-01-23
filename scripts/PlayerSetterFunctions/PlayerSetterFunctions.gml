@@ -86,11 +86,7 @@ function player_detect_angle()
 	if (edge == 0) exit;
 	
 	// Set new angle values
-	if (edge & (edge - 1) != 0) // Check if at least two sensors are grounded (non-power of 2 calculation)
-	{
-		direction = mask_direction;
-	}
-	else
+	if (edge & (edge - 1) == 0) // Check if only one sensor is grounded (power of 2 calculation)
 	{
 		// Setup offset point
 		var sine = dsin(mask_direction);
@@ -128,6 +124,7 @@ function player_detect_angle()
 		}
 		direction = player_calc_tile_normal(ox, oy, mask_direction);
 	}
+	else direction = mask_direction;
 	local_direction = angle_wrap(direction - gravity_direction);
 }
 

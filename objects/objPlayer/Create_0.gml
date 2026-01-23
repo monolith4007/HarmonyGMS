@@ -18,20 +18,12 @@ control_lock_time = 0;
 recovery_time = 0;
 superspeed_time = 0;
 invincibility_time = 0;
-camera_look_time = 120;
-
-slide_duration = 30;
+camera_look_time = LOOK_DELAY;
 
 // Physics
 x_speed = 0;
 y_speed = 0;
-
 player_refresh_physics();
-
-slide_threshold = 2.5;
-
-air_drag_threshold = 0.125;
-air_drag = 0.96875;
 
 // Collision detection
 x_radius = 8;
