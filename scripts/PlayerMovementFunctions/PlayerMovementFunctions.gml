@@ -40,17 +40,17 @@ function player_move_on_ground()
 		}
 		
 		// Handle floor collision
-		if (on_ground)
+		//tile_data = player_find_floor(y_radius + (ground_snap ? y_tile_reach : 1));
+		tile_data = player_find_floor(y_radius + min(2 + abs(x_speed) div 1, y_tile_reach));
+		if (tile_data != undefined)
 		{
-			//tile_data = player_find_floor(y_radius + (ground_snap ? y_tile_reach : 1));
-			tile_data = player_find_floor(y_radius + min(2 + abs(x_speed) div 1, y_tile_reach));
-			if (tile_data != undefined)
-			{
-				player_ground(tile_data);
-				player_rotate_mask();
-			}
-			else on_ground = false;
+			player_ground(tile_data);
+			player_rotate_mask();
 		}
+		else on_ground = false;
+		
+		// Exit loop if stopped or airborne
+		if (x_speed == 0 or not on_ground) break;
 	}
 }
 
@@ -62,6 +62,7 @@ function player_move_in_air()
 	var total_steps = 1 + abs(x_speed) div x_radius + abs(y_speed) div y_radius;
 	var x_step = x_speed / total_steps;
 	var y_step = y_speed / total_steps;
+	
 	var sine = dsin(mask_direction);
 	var cosine = dcos(mask_direction);
 	
