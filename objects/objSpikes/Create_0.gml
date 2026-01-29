@@ -11,7 +11,8 @@ reaction = function (inst)
 	// Take damage if touching the pointy side
 	if (player_beam_collision(inst) != noone)
 	{
-		if ((rotation_offset == 90 and x_speed > 0) or (rotation_offset == 270 and x_speed < 0))
+		//if ((rotation_offset == 90 and x_speed > 0) or (rotation_offset == 270 and x_speed < 0))
+		if (sign(x_speed) == dsin(rotation_offset))
 		{
 			react = true;
 		}
@@ -23,12 +24,9 @@ reaction = function (inst)
 			react = true;
 		}
 	}
-	else if (player_part_collision(inst, -y_radius))
+	else if (player_part_collision(inst, -y_radius) and rotation_offset == 180 and y_speed < 0)
 	{
-		if (rotation_offset == 180 and y_speed < 0)
-		{
-			react = true;
-		}
+		react = true;
 	}
 	
 	if (react) player_damage(inst);
