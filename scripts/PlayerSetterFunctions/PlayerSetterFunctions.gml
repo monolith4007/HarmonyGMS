@@ -57,11 +57,19 @@ function player_ground(height)
 {
 	if (height != undefined)
 	{
-		var offset = y_radius - height + 1;
-		x -= dsin(mask_direction) * offset;
-		y -= dcos(mask_direction) * offset;
+		height = y_radius - height + 1;
+		x -= dsin(mask_direction) * height;
+		y -= dcos(mask_direction) * height;
 		
-		player_detect_angle();
+		if (player_beam_collision(objSolid, x_radius, y_radius + 1) == noone)
+		{
+			player_detect_angle();
+		}
+		else
+		{
+			direction = mask_direction;
+			local_direction = angle_wrap(direction - gravity_direction);
+		}
 	}
 	else
 	{

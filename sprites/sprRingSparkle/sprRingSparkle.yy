@@ -29,7 +29,7 @@
   "origin":4,
   "parent":{
     "name":"Ring",
-    "path":"folders/Sprites/Zone Objects/Ring.yy",
+    "path":"folders/Sprites/Zone/Ring.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

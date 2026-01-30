@@ -8,8 +8,8 @@
   "name":"objLayerSet",
   "overriddenProperties":[],
   "parent":{
-    "name":"General",
-    "path":"folders/Objects/Zone/General.yy",
+    "name":"Zone",
+    "path":"folders/Objects/Zone.yy",
   },
   "parentObjectId":{
     "name":"objZoneObject",

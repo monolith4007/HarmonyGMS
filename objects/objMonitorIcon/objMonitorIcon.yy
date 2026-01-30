@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"objBadnik",
+  "%Name":"objMonitorIcon",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"objBadnik",
+  "name":"objMonitorIcon",
   "overriddenProperties":[],
   "parent":{
-    "name":"Parents",
-    "path":"folders/Objects/Zone/Parents.yy",
+    "name":"Monitor",
+    "path":"folders/Objects/Zone/Monitor.yy",
   },
-  "parentObjectId":{
-    "name":"objZoneObject",
-    "path":"objects/objZoneObject/objZoneObject.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,7 +29,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sprMonitorIcons",
+    "path":"sprites/sprMonitorIcons/sprMonitorIcons.yy",
+  },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

@@ -25,6 +25,10 @@ enum ICON
 	RING, SNEAKER, INVINCIBILITY, ROBOTNIK, SUPER, LIGHTNING, FIRE, BUBBLE, LIFE
 }
 
+/* AUTHOR NOTE:
+> The index of each icon enum entry MUST match its respective index of the icon sprite.
+> The default icon is currently the ring. */
+
 // Misc.
 show_debug_overlay(true);
 surface_depth_disable(true);

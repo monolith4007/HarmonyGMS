@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"Monitor",
-    "path":"folders/Sprites/Zone Objects/Monitor.yy",
+    "path":"folders/Sprites/Zone/Monitor.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
